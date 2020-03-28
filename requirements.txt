@@ -38,7 +38,7 @@ Mako==1.0.7
 MarkupSafe==1.0
 monotonic==1.5
 mysqlclient==1.4.6
-Pillow==5.2.0
+Pillow==6.2.0
 pycodestyle==2.5.0
 pymongo==3.10.1
 PyMySQL==0.8.1
