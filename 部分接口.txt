@@ -1,0 +1,2 @@
+.gitignore文件中添加了.idea(pycharm自带，不用提交)/migrations（数据库迁移文件，本地保存即可，可以考虑换成云数据库）文件夹，如果后面发现还有不需要提交的文件，可以添加到.gitignore中
+

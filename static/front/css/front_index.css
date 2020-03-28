@@ -1,0 +1,112 @@
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    list-style: none;
+}
+
+.index-banner{
+    border-radius: 10px;
+    overflow: hidden;
+    height: 300px;
+}
+
+.index-banner img{
+    height: 300px;
+}
+
+.post-group{
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.post-group-head{
+    overflow: hidden;
+}
+
+.post-group-head li{
+    float: left;
+    padding: 5px 15px;
+    list-style: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.post-group-head li a{
+    color:#333333;
+    text-decoration: none;
+}
+
+.post-group-head li.active{
+    background: #e3e3e3;
+}
+
+.post-list-group{
+    margin-top: 20px;
+}
+
+.post-list-group li{
+    overflow: hidden;
+    padding-bottom: 10px;
+
+}
+
+.author-avatar-group{
+    float: left;
+}
+
+.author-avatar-group img{
+    width: 50px;
+    border-radius: 10%;
+}
+
+.post-info-group{
+    float: left;
+    margin-left: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    width: 85%;
+    padding-bottom: 20px;
+}
+
+.post-info-group .post-info{
+    margin-top: 10px;
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.post-info span{
+    margin-right: 10px;
+}
+
+.pagination-group{
+    text-align: center;
+}
+
+
+#carousel-example-generic{
+    padding: 0;
+}
+
+.panel-title{
+    text-align: center;
+    font-size: 30px;
+}
+
+.main-content{
+    border-bottom: 1px solid #e6e6e6;
+    width: 100%;
+    margin-bottom: 10px;
+    padding-bottom: 80px;
+}
+.index-button{
+
+    text-align: center;
+}
+
+.singup-button{
+    margin-right: 20px;
+}

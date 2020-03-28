@@ -1,0 +1,10 @@
+
+.top-box button {
+    float: right;
+}
+
+.banner-td{
+    word-wrap:break-word;
+    width: 20%;
+    word-break: break-all;
+}

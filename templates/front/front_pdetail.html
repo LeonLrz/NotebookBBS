@@ -1,0 +1,151 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static("ueditor/ueditor.config.js") }}"></script>
+    <script src="{{ static("ueditor/ueditor.all.min.js") }}"></script>
+    <script src="{{ static('front/js/front_pdetail.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('front/css/front_pdetail.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="col-md-8 col-xs-12 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="post-header">
+                    <h3>{{ post.title }}    </h3>
+                    <ul class="post-info-description">
+                        <li>发表日期：{{ post.create_time }} </li>
+                        <li>作者：{{ post.author.username }} </li>
+                    </ul>
+                    <span class="clearfix"></span>
+                    <ul class="post-info-description">
+                        <li>所属板块：<a href="#">{{ post.board.name }}  </a>
+                        </li>
+                        <li>阅读量{{ post.read_count or 0 }}</li>
+                        <!--利用模板标签显示评论数-->
+                        <li>评论({{ post.comments |length }})</li>
+                        <li>点赞({{ post.stars |length }})</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <article class="post-content" id="post-content" data-id="{{ post.id }}">
+                    {{ post.content |safe }}
+                </article>
+            </div>
+            <div class="star-group">
+                {% if g.front_user and g.front_user.id in star_author_ids %}
+                    <button class="btn btn-default btn-xs" id="star-btn" data-post-id="{{ post.id }}" data-is-star="1"
+                            data-is-login="1">已赞
+                    </button>
+                {% else %}
+                    <button class="btn btn-primary btn-xs" id="star-btn" data-post-id="{{ post.id }}" data-is-star="0"
+                            data-is-login="{% if g.front_user %}1{% else %}0{% endif %}">点赞
+                    </button>
+                {% endif %}
+
+                {% for star in post.stars %}
+                    <a href="#">
+                        <img src="{{ static('common/images/avatar.png') }}" alt="用户头像">
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="comment-area">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 style="font-size: 18px;font-weight: bold;">评论列表</h4>
+                </div>
+                <div class="panel-body">
+                {% if post.comments %}
+                    <ul class="comment-list">
+                        {% for comment in post.comments %}
+                            <li>
+                                <div class="comment-img">
+                                    <a href="#"><img class="user-head" src="{{ comment.author.avatar or static('common/images/logo.png') }}" alt="评论者头像"></a>
+                                </div>
+                                <div class="comment-content">
+                                    <p class="author-info">
+                                        <span>{{ comment.author.username }}</span>
+                                        <span>{{ comment.create_time }}</span>
+                                    </p>
+                                    {% if comment.origin_comment %}
+                                        <div class="origin-comment-group">
+                                            <blockquote>
+                                                {{ comment.origin_comment.author.username }}
+                                                发表于 {{ comment.origin_comment.create_time }}
+                                                <p>{{ comment.origin_comment.content|safe }}</p>
+                                            </blockquote>
+                                        </div>
+                                    {% endif %}
+                                    <p class="comment-txt">{{ comment.content|safe }}</p>
+                                    <div class="comment-btn">
+                                        <a href="{{ url_for('front.add_comment',post_id=post.id,comment_id=comment.id) }}"
+                                           class="reply-btn">回复</a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <p>虚位以待。快来添加第一条评论吧~</p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 style="font-size: 18px;font-weight: bold;">发表评论</h4>
+            </div>
+            <div class="add-comment-group">
+
+                <script id="editor" type="text/plain"></script>
+                <div class='comment-btn-group'>
+                    <button class="btn btn-primary" id="comment-btn">发表评论</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden-xs col-md-3 col-xs-8">
+        <div class="side-list">
+            <div class="post-border">
+                <div class="author-group">
+                    <div class="avatar-group">
+                        <a href="{{ url_for('front.profile',user_id=post.author.id) }}"><img
+                                src="{{ post.author.avatar or static('common/images/logo.png') }}" alt="用户头像" class="avatar-img"></a>
+                    </div>
+                    <p class="username">{{ post.author.username }}</p>
+                    <p class="txt">{{ post.author.points }}积分</p>
+                    <div class="btn-box">
+                        <a href="{{ url_for('front.profile',user_id=post.author.id) }}" target="_blank"
+                           class="btn btn-warning">Ta的主页</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-border">
+                <h4>
+                    <span class="glyphicon glyphicon-book"></span>
+                    热门帖子
+                </h4>
+                <ul>
+                    {% for post in posts_list %}
+                        <li><a href=" {{ url_for("front.post_detail",post_id=post.id) }} ">
+                            {{ post.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

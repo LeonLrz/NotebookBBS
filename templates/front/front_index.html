@@ -1,0 +1,117 @@
+{% extends "front/front_base.html" %}
+{% block title %}Notebook BBS{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static("front/css/front_index.css") }}">
+    <script src="{{ static('front/js/front_index.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="carousel-example-generic" class="carousel slide index-banner col-sm-7 col-md-8 col-lg-7 col-lg-offset-1"
+         data-ride="carousel">
+        <!-- 指示器 -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+        <!-- 轮播图 -->
+        <div class="carousel-inner" role="listbox">
+            {% for banner in banners %}
+                {% if loop.first %}
+                    <div class="item active">
+                {% else %}
+                    <div class="item">
+                {% endif %}
+            <a href="{{ banner.link_url }}" target="_blank">
+                <img src="{{ banner.image_url }}" alt="{{ banner.name }}">
+            </a>
+            </div>
+            {% endfor %}
+            </div>
+            <!-- 左右切换的控制按钮 -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="hidden-xs col-sm-2 col-md-4 col-lg-3 col-lg-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Notebook BBS</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="main-content">
+                        <b>关于本站：</b>
+                        <p>我们是高品质的 笔记本爱好者 中文社区，致力于为 笔记本爱好者提供一个知识共享，协同互助的平台。<br>我们将会是国内最靠谱的 笔记本 论坛。</p>
+                    </div>
+                    <div class="index-button">
+                        <a href="{{ url_for('front.signup') }}" class="btn btn-primary singup-button">加入论坛</a>
+                        <a href="{{ url_for('front.apost') }}" class="btn btn-warning post-button">发布帖子</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-7 col-md-8 col-lg-8 col-lg-offset-1" style="padding-left: 0px;padding-right: 0px;">
+            <div class="post-group">
+                <div class="post-head">
+                    <ul class="post-group-head">
+                        <li><a id="new"href="{{ url_for('front.index',st=1,bd=current_board) }}">最新</a></li>
+                        <li><a id="highlight" href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖</a></li>
+                        <li><a id="thumb" href="{{ url_for('front.index',st=3,bd=current_board) }}">点赞最多</a></li>
+                        <li><a id="comment" href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
+                    </ul>
+                </div>
+                <ul class="post-list-group">
+                    {% for post in posts %}
+                        <li>
+                            <div class="author-avatar-group">
+                                <img src="{{ post.author.avatar or static('common/images/avatar.png') }}" alt="用户头像">
+                            </div>
+                            <div class="post-info-group">
+                                <p class="post-title"><a href="{{ url_for("front.post_detail",post_id=post.id) }}">{{ post.title }}</a>
+                                        {% if post.highlight %}
+                                            <span class="label label-danger">精华帖</span>
+                                        {% endif %}
+                                </p>
+                                <p class="post-info">
+                                    <span>作者:{{ post.author.username }}</span>
+                                    <span>发表时间：{{ post.create_time }}</span>
+                                    <span>评论：{{ post.comments | length }}</span>
+                                    <span>阅读：{{ post.read_count or 0 }}</span>
+                                    <span>点赞：{{ post.stars | length }}</span>
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="pagination-group">
+                    {{ pagination.links }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="hidden-xs col-sm-2 col-md-4 col-lg-3 ">
+            <div class="list-group">
+                <a href="/" class="list-group-item active"><b>所有板块</b></a>
+                {% for board in boards %}
+                    {% if board.id == current_board %}
+                        <a href="{{ url_for("front.index",bd=board.id) }}" class="list-group-item active">
+                    {% else %}
+                        <a href="{{ url_for("front.index",bd=board.id) }}" class="list-group-item">
+                    {% endif %}
+                <span class="badge">{{ board.posts | length }}</span>
+                {{ board.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+
+{% endblock %}

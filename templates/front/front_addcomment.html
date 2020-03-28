@@ -1,0 +1,34 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    回复
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static("ueditor/ueditor.config.js") }}"></script>
+    <script src="{{ static("ueditor/ueditor.all.min.js") }}"></script>
+    <link rel="stylesheet" href="{{ static('front/css/front_addcomment.css') }}">
+    <script src="{{ static('front/js/front_addcomment.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container-inner">
+        <div class="post-title">
+            <a href="{{ url_for('front.post_detail',post_id=post.id) }}">{{ post.title }}</a>
+            {% if origin_comment %}
+                <div class="origin-comment-group" data-comment-id="{{ origin_comment.id }}">
+                    回复:{{ origin_comment.author.username }}
+                    <p>“{{ origin_comment.content|safe }}”</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="add-comment-group">
+            {#                    style="min-height: 150px;width: 100%;"#}
+            <script id="editor" type="text/plain"></script>
+            <div class="bottom-group">
+                <button class="btn btn-warning" data-post-id="{{ post.id }}" id="submit-btn">提交评论</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
