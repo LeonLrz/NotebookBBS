@@ -36,20 +36,21 @@ MAIL_USERNAME = "920592896@qq.com"
 MAIL_PASSWORD = "pvlblrcpuokybfhc"
 MAIL_DEFAULT_SENDER = "920592896@qq.com"
 
+
+#七牛相关配置
+QINIU_ACCESS_KEY = 'yyuGQ23-tev5MH3frrHRlywopGfNOSo1jFuJ0WMR'
+QINIU_SECRET_KEY = 'QoM8Tta-a3epznleHtq-tuyn59w92HIaH34vGxjy'
+QINIU_BUCKET_NAME = 'lrzleonstore'
+# 这个域名需要到用到七牛的js文件中去配置，如front_settings.html/ cms_banners.js
+QINIU_DOMAIN = 'http://q7ng4sydq.bkt.clouddn.com/'
+
 # UEditor的相关配置
 # UEditor 使用七牛作为存储文件的服务器
 UEDITOR_UPLOAD_TO_QINIU = True
-UEDITOR_QINIU_ACCESS_KEY = 'yyuGQ23-tev5MH3frrHRlywopGfNOSo1jFuJ0WMR'
-UEDITOR_QINIU_SECRET_KEY = 'QoM8Tta-a3epznleHtq-tuyn59w92HIaH34vGxjy'
-UEDITOR_QINIU_BUCKET_NAME = 'lrzleonstore'
-UEDITOR_QINIU_DOMAIN = 'http://q7ng4sydq.bkt.clouddn.com/'
-
-#七牛相关配置
-QINIU_ACCESS_KEY = UEDITOR_QINIU_ACCESS_KEY
-QINIU_SECRET_KEY = UEDITOR_QINIU_SECRET_KEY
-QINIU_BUCKET_NAME = UEDITOR_QINIU_BUCKET_NAME
-# 这个域名需要到用到七牛的js文件中去配置，如front_settings.html/ cms_banners.js
-QINIU_DOMAIN = UEDITOR_QINIU_DOMAIN
+UEDITOR_QINIU_ACCESS_KEY = QINIU_ACCESS_KEY
+UEDITOR_QINIU_SECRET_KEY = QINIU_SECRET_KEY
+UEDITOR_QINIU_BUCKET_NAME = QINIU_BUCKET_NAME
+UEDITOR_QINIU_DOMAIN = QINIU_DOMAIN
 
 # flask-paginate相关配置
 PER_PAGE = 10
