@@ -402,12 +402,6 @@ def email_captcha():
     return restful.success("验证码发送成功！")
 
 
-@bp.route('/email/')
-def send_email():
-
-    return "success"
-
-
 bp.add_url_rule('/login/',
                 view_func=LoginView.as_view('login'))
 bp.add_url_rule('/resetpwd/',
