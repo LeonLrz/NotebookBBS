@@ -53,6 +53,7 @@ class AddBoardForm(BaseForm):
 class UpdateBoardForm(AddBoardForm):
     board_id = IntegerField(validators=[InputRequired(message="请输入板块id")])
 
+
 class CMSBlackFrontUserForm(BaseForm):
     user_id = StringField(validators=[InputRequired(message=u'必须传入id！')])
     is_black = IntegerField(validators=[InputRequired(message=u'必须指定是否加入黑名单！')])

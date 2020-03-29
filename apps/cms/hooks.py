@@ -12,6 +12,7 @@ def before_request():
         if user:
             g.cms_user = user
 
+
 @bp.context_processor
 def cms_context_processor():
     return {"CMSPermission":CMSPermission}
