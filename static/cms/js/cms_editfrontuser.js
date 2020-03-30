@@ -1,7 +1,3 @@
-/**
- * Created by Administrator on 2017/3/24.
- */
-
 $(function () {
     $('#back-list-btn').click(function (event) {
         event.preventDefault();

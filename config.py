@@ -6,10 +6,10 @@ SECRET_KEY = '\xf9AR\x1d\\\xf0\xd3\x0e\xa3\x16(f\xd0\xd0\xb7\xfb~\x81\x8a\xeb\x1
 DIALECT = 'mysql'
 DRIVER = 'mysqldb'
 USERNAME = 'root'
-PASSWORD = 'a8824481'
-HOST = '127.0.0.1'
+PASSWORD = 'notebook'
+HOST = '47.93.151.99'
 PORT = '3306'
-DATABASE = 'notebook_bbs'
+DATABASE = 'notebookbbs'
 
 
 PERMANENT_SESSION_LIFETIME = timedelta(days=7)
