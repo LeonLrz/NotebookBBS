@@ -147,6 +147,7 @@ def post_detail(post_id):
     }
     return render_template('front/front_pdetail.html', **context)
 
+
 @bp.route('/notebook/')
 def notebook():
     notebooks = LaptopInfo.query.all()
@@ -154,7 +155,6 @@ def notebook():
         'notebooks':notebooks
     }
     return render_template('front/notebook.html',**context)
-
 
 
 class SignupView(views.MethodView):

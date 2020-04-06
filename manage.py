@@ -12,6 +12,7 @@ CMSRole = cms_models.CMSRole
 CMSPermission = cms_models.CMSPermission
 
 FrontUser = front_moedels.FrontUser
+LaptopInfo = front_moedels.LaptopInfo
 
 app = create_app()
 
@@ -101,6 +102,12 @@ def create_test_post():
         db.session.add(post)
         db.session.commit()
     print("恭喜测试帖子添加成功")
+
+@manager.command
+def test_laptop():
+    notebooks = LaptopInfo.query.all()
+    for notebook in notebooks:
+        print(notebook.laptop_model)
 
 if __name__ == "__main__":
     manager.run()
