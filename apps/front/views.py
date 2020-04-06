@@ -11,7 +11,7 @@ from flask import (
 )
 from utils import restful, safeutils
 from .forms import SignupForm, SigninForm, AddPostForm, AddCommentForm,StarPostForm,SettingsForm
-from .models import FrontUser
+from .models import FrontUser,LaptopInfo
 from exts import db
 import config
 from ..models import BannerModel, BoardModel, PostModel, CommentModel, HighlightPostModel,PostStarModel
@@ -146,6 +146,15 @@ def post_detail(post_id):
         'posts_list':posts_list
     }
     return render_template('front/front_pdetail.html', **context)
+
+@bp.route('/notebook/')
+def notebook():
+    notebooks = LaptopInfo.query.all()
+    context = {
+        'notebooks':notebooks
+    }
+    return render_template('front/notebook.html',**context)
+
 
 
 class SignupView(views.MethodView):

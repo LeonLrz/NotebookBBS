@@ -47,3 +47,27 @@ class FrontUser(db.Model):
     def check_password(self, raw_password):
         result = check_password_hash(self.password, raw_password)
         return result
+
+
+class LaptopInfo(db.Model):
+    __tablename__ = 'laptopinfo'
+
+    id = db.Column(db.Integer, primary_key=True)
+    laptop_model = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='????')
+    url = db.Column(db.String(300), nullable=False, server_default=db.FetchedValue(), info='????')
+    pic = db.Column(db.String(300), nullable=False, server_default=db.FetchedValue(), info='???')
+    rate = db.Column(db.String(3), nullable=False, server_default=db.FetchedValue(), info='????')
+    hash = db.Column(db.String(32), nullable=False, unique=True, server_default=db.FetchedValue(), info='???')
+    detail_url = db.Column(db.String(300), nullable=False, server_default=db.FetchedValue(), info='??????')
+    parameter_url = db.Column(db.String(300), nullable=False, server_default=db.FetchedValue(), info='??????')
+    laptop_position = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='????')
+    laptop_price = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='????')
+    laptop_cpu = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='CPU??')
+    laptop_cpu_freq = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='CPU??')
+    laptop_cpu_core = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='CPU???')
+    laptop_gpu = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='GPU')
+    laptop_ram = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='RAM')
+    laptop_rom = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='ROM')
+    laptop_weight = db.Column(db.String(200), nullable=False, server_default=db.FetchedValue(), info='Weight')
+    updated_time = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue(), info='??????')
+    created_time = db.Column(db.DateTime, nullable=False, server_default=db.FetchedValue(), info='????')
