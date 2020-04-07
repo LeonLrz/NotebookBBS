@@ -81,7 +81,7 @@
                                 </p>
                                 <p class="post-info">
                                     <span>作者:{{ post.author.username }}</span>
-                                    <span>发表时间：{{ post.create_time }}</span>
+                                    <span>发表时间：{{ post.create_time | handle_time }}</span>
                                     <span>评论：{{ post.comments | length }}</span>
                                     <span>阅读：{{ post.read_count }}</span>
                                     <span>点赞：{{ post.stars | length }}</span>

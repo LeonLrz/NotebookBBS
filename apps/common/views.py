@@ -7,6 +7,7 @@ from io import BytesIO
 import qiniu
 import config
 
+
 bp = Blueprint("common",__name__,url_prefix="/c")
 
 # 加密混淆前
@@ -71,3 +72,4 @@ def uptoken():
     bucket = config.QINIU_BUCKET_NAME
     token = q.upload_token(bucket)
     return jsonify({'uptoken':token})
+
