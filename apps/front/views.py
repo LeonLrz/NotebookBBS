@@ -139,6 +139,7 @@ def post_detail(post_id):
     if not post:
         abort(404)
     # 获取这篇帖子的所有赞的作者的id，方便模版中判断
+    post.read_count += 1
     star_author_ids = [star_model.author.id for star_model in post.stars]
     context = {
         'post': post,
