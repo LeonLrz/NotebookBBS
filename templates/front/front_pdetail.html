@@ -26,7 +26,7 @@
                     <ul class="post-info-description">
                         <li>所属板块：<a href="#">{{ post.board.name }}  </a>
                         </li>
-                        <li>阅读量{{ post.read_count or 0 }}</li>
+                        <li>阅读量({{ post.read_count }})</li>
                         <!--利用模板标签显示评论数-->
                         <li>评论({{ post.comments |length }})</li>
                         <li>点赞({{ post.stars |length }})</li>
