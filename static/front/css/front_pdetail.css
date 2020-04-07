@@ -184,6 +184,10 @@ div.reply_content{
     margin-top: 10px;
 }
 
+.comment-list{
+    padding: 15px;
+}
+
 .comment-list-group{
     padding-left: 20px;
 }

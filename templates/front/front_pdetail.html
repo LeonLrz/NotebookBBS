@@ -50,7 +50,7 @@
                 {% endif %}
 
                 {% for star in post.stars %}
-                    <a href="#">
+                    <a href="{{ url_for('front.profile',user_id=star.author.id) }}" target="_blank">
                         <img src="{{ static('common/images/avatar.png') }}" alt="用户头像">
                     </a>
                 {% endfor %}
@@ -68,7 +68,9 @@
                         {% for comment in post.comments %}
                             <li>
                                 <div class="comment-img">
-                                    <a href="#"><img class="user-head" src="{{ comment.author.avatar or static('common/images/logo.png') }}" alt="评论者头像"></a>
+                                    <a href="{{ url_for('front.profile',user_id=comment.author.id) }}" target="_blank">
+                                        <img class="user-head" src="{{ comment.author.avatar or static('common/images/logo.png') }}" alt="评论者头像">
+                                    </a>
                                 </div>
                                 <div class="comment-content">
                                     <p class="author-info">
