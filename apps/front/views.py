@@ -41,7 +41,7 @@ def index():
     elif sort == 3:
         # 按点赞数量排序
         query_obj = db.session.query(PostModel).outerjoin(PostStarModel).group_by(PostModel.id).\
-            order_by(func.count(PostStarModel.id).desc(),PostModel.create_time())
+            order_by(func.count(PostStarModel.id).desc(), PostModel.create_time.desc())
     elif sort == 4:
         # 按照评论数量排序
         query_obj = db.session.query(PostModel).outerjoin(CommentModel).group_by(PostModel.id). \
