@@ -220,12 +220,28 @@ div.reply_content{
     color: #8c8c8c;
 }
 
-
-.author-avatar{
+.author-group{
     text-align: center;
-    padding: 20px;
-    border-bottom: 1px solid #c5c5c5;
 }
+
+.author-group p{
+    margin: 0;
+    padding: 3px;
+    color: #8c8c8c;
+}
+
+.author-group .point{
+    color: #333333;
+}
+
+.author-group .username{
+    color: #0d56a6;
+}
+
+.avatar-img{
+    width: 150px;
+}
+
 
 .comment-list > li{
     margin-top: 30px;
@@ -308,24 +324,9 @@ div.reply_content{
     border-top: 1px solid #e6e6e6;
 }
 
-/*.author-info{*/
-    /*text-align: center;*/
-/*}*/
-
-/*.author-info .author-name{*/
-    /*padding-top: 10px;*/
-    /*font-size: 16px;*/
-    /*color: #000000;*/
-    /*font-weight: bold;*/
-/*}*/
-
-/*.author-info .author-score{*/
-    /*font-size: 12px;*/
-    /*color: #8c8c8c;*/
-/*}*/
 
 .star-group{
-    margin-top: 20px;
+    padding: 20px 40px;
     overflow: hidden;
 }
 .star-group button{
@@ -345,4 +346,9 @@ div.reply_content{
 #editor{
     min-height: 150px;
     width: 100%;
+}
+
+.ui.info.message {
+    background-color: #f8ffff;
+    color: #276f86;
 }

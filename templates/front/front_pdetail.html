@@ -69,7 +69,7 @@
                             <li>
                                 <div class="comment-img">
                                     <a href="{{ url_for('front.profile',user_id=comment.author.id) }}" target="_blank">
-                                        <img class="user-head" src="{{ comment.author.avatar or static('common/images/logo.png') }}" alt="评论者头像">
+                                        <img class="user-head" src="{{ comment.author.avatar or static('common/images/avatar.png') }}" alt="评论者头像">
                                     </a>
                                 </div>
                                 <div class="comment-content">
@@ -108,7 +108,9 @@
                 <h4 style="font-size: 18px;font-weight: bold;">发表评论</h4>
             </div>
             <div class="add-comment-group">
-
+                <div class="ui message info">
+                    <i class="icon info" aria-hidden="true"></i>请勿发布不友善或者负能量的内容，文明讨论，和谐交流！
+                </div>
                 <script id="editor" type="text/plain"></script>
                 <div class='comment-btn-group'>
                     <button class="btn btn-primary" id="comment-btn">发表评论</button>
@@ -123,13 +125,14 @@
                 <div class="author-group">
                     <div class="avatar-group">
                         <a href="{{ url_for('front.profile',user_id=post.author.id) }}"><img
-                                src="{{ post.author.avatar or static('common/images/logo.png') }}" alt="用户头像" class="avatar-img"></a>
+                                src="{{ post.author.avatar or static('common/images/avatar.png') }}" alt="用户头像" class="avatar-img"></a>
                     </div>
-                    <p class="username">{{ post.author.username }}</p>
-                    <p class="txt">{{ post.author.points }}积分</p>
+                    <p class="username"><a href="{{ url_for('front.profile',user_id=post.author.id) }}">{{ post.author.username }}</a></p>
+                    <p > <span class="point">{{ post.author.points }}</span> 积分</p>
+                    <p class="signature">{{ post.author.signature or "这个人很懒，还没有个性签名~"}}</p>
                     <div class="btn-box">
                         <a href="{{ url_for('front.profile',user_id=post.author.id) }}" target="_blank"
-                           class="btn btn-warning">Ta的主页</a>
+                           class="btn btn-warning">TA的主页</a>
                     </div>
                 </div>
             </div>

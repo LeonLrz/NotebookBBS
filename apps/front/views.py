@@ -196,7 +196,6 @@ def add_comment():
             context['origin_comment'] = CommentModel.query.get(comment_id)
         return render_template('front/front_addcomment.html',**context)
     else:
-        origin_comment_id = request.form.get("origin_comment_id", type=int)
         form = AddCommentForm(request.form)
         if form.validate():
             content = form.content.data
@@ -206,7 +205,12 @@ def add_comment():
                 comment = CommentModel(content=content)
                 comment.post = post
                 comment.author = g.front_user
+                origin_comment_id = request.form.get("origin_comment_id", type=int)
                 comment.origin_comment_id = origin_comment_id
+                if origin_comment_id:
+                    g.front_user.points += 1
+                else:
+                    g.front_user.points += 3
                 db.session.add(comment)
                 db.session.commit()
                 return restful.success()
@@ -265,6 +269,7 @@ def apost():
             post = PostModel(title=title, content=content)
             post.board = board
             post.author = g.front_user
+            g.front_user.points += 5
             db.session.add(post)
             db.session.commit()
             return restful.success()
