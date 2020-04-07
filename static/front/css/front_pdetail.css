@@ -215,6 +215,12 @@ div.reply_content{
     margin-top: 10px;
 }
 
+.origin-comment-group span{
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+
 .author-avatar{
     text-align: center;
     padding: 20px;

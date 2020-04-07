@@ -95,6 +95,7 @@ def profile_posts():
     else:
         return abort(404)
 
+
 @bp.route('/settings/',methods=['POST','GET'])
 @login_required
 def settings():
@@ -195,6 +196,7 @@ def add_comment():
             context['origin_comment'] = CommentModel.query.get(comment_id)
         return render_template('front/front_addcomment.html',**context)
     else:
+        origin_comment_id = request.form.get("origin_comment_id", type=int)
         form = AddCommentForm(request.form)
         if form.validate():
             content = form.content.data
@@ -204,6 +206,7 @@ def add_comment():
                 comment = CommentModel(content=content)
                 comment.post = post
                 comment.author = g.front_user
+                comment.origin_comment_id = origin_comment_id
                 db.session.add(comment)
                 db.session.commit()
                 return restful.success()
@@ -211,6 +214,7 @@ def add_comment():
                 return restful.params_error("没有这篇帖子")
         else:
             return restful.params_error(message=form.get_error())
+
 
 @bp.route('/star_post/',methods=['POST'])
 @login_required

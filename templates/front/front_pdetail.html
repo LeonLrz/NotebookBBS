@@ -74,15 +74,15 @@
                                 </div>
                                 <div class="comment-content">
                                     <p class="author-info">
-                                        <span>{{ comment.author.username }}</span>
-                                        <span>{{ comment.create_time }}</span>
+                                        <span><a href="{{ url_for("front.profile",user_id=comment.author.id) }}">{{ comment.author.username }}</a></span>
+                                        <span>{{ comment.create_time | exact_time }}</span>
                                     </p>
                                     {% if comment.origin_comment %}
                                         <div class="origin-comment-group">
                                             <blockquote>
-                                                {{ comment.origin_comment.author.username }}
-                                                发表于 {{ comment.origin_comment.create_time }}
-                                                <p>{{ comment.origin_comment.content|safe }}</p>
+                                                <span><a href="{{ url_for("front.profile",user_id=comment.origin_comment.author.id) }}">@{{ comment.origin_comment.author.username }}</a>
+                                                发表于 {{ comment.origin_comment.create_time | exact_time }}</span>
+                                                <span>{{ comment.origin_comment.content|safe }}</span>
                                             </blockquote>
                                         </div>
                                     {% endif %}

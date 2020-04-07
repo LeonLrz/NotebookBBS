@@ -44,9 +44,11 @@ class AddCommentForm(BaseForm):
     content = StringField(validators=[InputRequired(message="请输入评论内容！")])
     post_id = IntegerField(validators=[InputRequired(message='请输入帖子id!')])
 
+
 class StarPostForm(BaseForm):
     post_id = IntegerField(validators=[InputRequired(message=u'必须输入帖子id！')])
     is_star = BooleanField(validators=[InputRequired(message=u'必须输入赞的行为！')])
+
 
 class SettingsForm(BaseForm):
     username = StringField(validators=[InputRequired(message=u'必须输入用户名！')])

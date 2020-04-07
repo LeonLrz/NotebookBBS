@@ -27,14 +27,14 @@ $(function () {
         event.preventDefault();
         var post_id = $(this).attr('data-post-id');
         var content = window.ue.getContent();
-        var comment_id = $(".origin-comment-group").attr('data-comment-id');
+        var origin_comment_id = $(".origin-comment-group").attr('data-comment-id');
 
         myajax.post({
             'url': '/acomment/',
             'data': {
                 'post_id': post_id,
                 'content': content,
-                'comment_id': comment_id
+                'origin_comment_id': origin_comment_id
             },
             'success': function (data) {
                 if(data['code'] == 200){

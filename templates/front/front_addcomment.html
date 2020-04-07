@@ -17,8 +17,8 @@
             <a href="{{ url_for('front.post_detail',post_id=post.id) }}">{{ post.title }}</a>
             {% if origin_comment %}
                 <div class="origin-comment-group" data-comment-id="{{ origin_comment.id }}">
-                    回复:{{ origin_comment.author.username }}
-                    <p>“{{ origin_comment.content|safe }}”</p>
+                    回复: {{ origin_comment.author.username }}
+                    <p>“{{ origin_comment.content| safe }}”</p>
                 </div>
             {% endif %}
         </div>
