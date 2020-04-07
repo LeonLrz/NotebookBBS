@@ -136,7 +136,7 @@ def logout():
 @bp.route('/p/<post_id>/')
 def post_detail(post_id):
     post = PostModel.query.get(post_id)
-    posts_list = PostModel.query.all()[0:10]
+    posts_list = PostModel.query.order_by(PostModel.read_count.desc())[0:10]
     if not post:
         abort(404)
     # 获取这篇帖子的所有赞的作者的id，方便模版中判断
