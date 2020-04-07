@@ -24,7 +24,7 @@
                     </ul>
                     <span class="clearfix"></span>
                     <ul class="post-info-description">
-                        <li>所属板块：<a href="#">{{ post.board.name }}  </a>
+                        <li>所属板块：<a href="{{ url_for('front.index',bd=post.board.id ) }}">{{ post.board.name }}  </a>
                         </li>
                         <li>阅读量({{ post.read_count }})</li>
                         <!--利用模板标签显示评论数-->
