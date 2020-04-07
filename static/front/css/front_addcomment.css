@@ -11,10 +11,17 @@
 }
 .post-title{
     padding: 20px 0;
+    font-size: 20px;
+    font-weight: bold;
 }
 .origin-comment-group{
     padding-bottom: 20px;
 }
+
+.bottom-group{
+    padding-top: 10px;
+}
+
 #editor{
    min-height: 150px;
     width: 100%;

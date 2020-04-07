@@ -13,22 +13,29 @@
 
 {% block body %}
     <div class="container-inner">
-        <div class="post-title">
+    <div class="post-title">
+        <p>
+            原帖：
             <a href="{{ url_for('front.post_detail',post_id=post.id) }}">{{ post.title }}</a>
-            {% if origin_comment %}
-                <div class="origin-comment-group" data-comment-id="{{ origin_comment.id }}">
-                    回复: {{ origin_comment.author.username }}
-                    <p>“{{ origin_comment.content| safe }}”</p>
-                </div>
-            {% endif %}
-        </div>
-        <div class="add-comment-group">
-            {#                    style="min-height: 150px;width: 100%;"#}
-            <script id="editor" type="text/plain"></script>
-            <div class="bottom-group">
-                <button class="btn btn-warning" data-post-id="{{ post.id }}" id="submit-btn">提交评论</button>
-            </div>
-        </div>
+        </p>
     </div>
+    {% if origin_comment %}
+        <div class="origin-comment-group">
+        <span>回复<a href="{{ url_for("front.profile",user_id=origin_comment.author.id) }}">@{{ origin_comment.author.username }}</a>
+            发表于 {{ origin_comment.create_time | exact_time }}</span>
+        <blockquote>
+            <span class="origin-comment">{{ origin_comment.content|safe }}</span>
+        </blockquote>
+        </div>
+    {% endif %}
+
+<div class="add-comment-group">
+    {#                    style="min-height: 150px;width: 100%;"#}
+    <script id="editor" type="text/plain"></script>
+    <div class="bottom-group">
+        <button class="btn btn-warning" data-post-id="{{ post.id }}" id="submit-btn">提交评论</button>
+    </div>
+</div>
+</div>
 {% endblock %}
 
