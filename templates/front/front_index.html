@@ -48,10 +48,24 @@
                     <div class="main-content">
                         <b>关于本站：</b>
                         <p>我们是高品质的 笔记本爱好者 中文讨论社区，致力于为 笔记本爱好者 提供一个知识共享，协同互助的平台。<br>我们将会是国内最简洁易用的笔记本讨论社区。</p>
+                        {% if  g.front_user %}
+                            {% if not g.front_user.is_active %}
+                                <li class="list-group-item list-group-item-danger"><span class="glyphicon glyphicon-remove"></span>您的账号已被封禁，无法发表帖子！</li>
+                            {% endif %}
+                        {% endif %}
                     </div>
                     <div class="index-button">
                         <a href="{{ url_for('front.signup') }}" class="btn btn-primary singup-button">加入论坛</a>
-                        <a href="{{ url_for('front.apost') }}" class="btn btn-warning post-button">发布帖子</a>
+
+                        {% if  g.front_user %}
+                            {% if g.front_user.is_active %}
+                                <a href="{{ url_for('front.apost') }}" class="btn btn-warning post-button">发布帖子</a>
+                            {% else %}
+                                <a href="#" class="btn btn-warning post-button" disabled="disabled">发布帖子</a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ url_for('front.apost') }}" class="btn btn-warning post-button">发布帖子</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

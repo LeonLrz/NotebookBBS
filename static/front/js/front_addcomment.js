@@ -43,7 +43,7 @@ $(function () {
                         window.location = '/p/'+post_id+'/';
                     },500);
                 }else{
-                    myalert.alertInfoToast(data['message']);
+                    myalert.alertInfo(data['message']);
                 }
             }
         })

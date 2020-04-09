@@ -12,6 +12,7 @@ def my_before_request():
         if user:
             g.front_user = user
 
+
 @bp.errorhandler
 def page_not_found():
     return render_template('front/front_404.html'),404

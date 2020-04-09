@@ -325,6 +325,19 @@ div.reply_content{
     padding: 10px;
 }
 
+.comment-btn-group button{
+    float: right;
+}
+
+.comment-btn-group li{
+    text-align: center;
+    float: right;
+    padding: 0;
+    line-height: 32px;
+    margin: 0 10px ;
+    width: 270px;
+}
+
 
 .star-group{
     padding: 20px 40px;
@@ -353,3 +366,4 @@ div.reply_content{
     background-color: #f8ffff;
     color: #276f86;
 }
+

@@ -196,6 +196,9 @@ def add_comment():
             context['origin_comment'] = CommentModel.query.get(comment_id)
         return render_template('front/front_addcomment.html',**context)
     else:
+        if g.front_user:
+            if not g.front_user.is_active:
+                return restful.params_error(message="对不起，您的账号已被封禁，无法发表评论！")
         form = AddCommentForm(request.form)
         if form.validate():
             content = form.content.data
@@ -258,6 +261,9 @@ def apost():
         boards = BoardModel.query.all()
         return render_template('front/front_apost.html', boards=boards)
     else:
+        if g.front_user:
+            if not g.front_user.is_active:
+                return restful.params_error(message="对不起，您的账号已被封禁，无法发帖！")
         form = AddPostForm(request.form)
         if form.validate():
             title = form.title.data

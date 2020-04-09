@@ -52,7 +52,10 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 .post-list-group li{
     overflow: hidden;
     padding-bottom: 10px;
+}
 
+.post-list-group li:last-child .post-info-group{
+    border: none;
 }
 
 .author-avatar-group{
@@ -100,12 +103,19 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     border-bottom: 1px solid #e6e6e6;
     width: 100%;
     margin-bottom: 10px;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
 }
-.index-button{
 
+.main-content li{
+    text-align: left;
+    margin: 5px 0;
+}
+
+.index-button{
     text-align: center;
 }
+
+
 
 .singup-button{
     margin-right: 20px;
