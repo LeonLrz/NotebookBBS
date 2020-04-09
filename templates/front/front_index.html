@@ -50,7 +50,9 @@
                         <p>我们是高品质的 笔记本爱好者 中文讨论社区，致力于为 笔记本爱好者 提供一个知识共享，协同互助的平台。<br>我们将会是国内最简洁易用的笔记本讨论社区。</p>
                         {% if  g.front_user %}
                             {% if not g.front_user.is_active %}
-                                <li class="list-group-item list-group-item-danger"><span class="glyphicon glyphicon-remove"></span>您的账号已被封禁，无法发表帖子！</li>
+                                <li class="list-group-item list-group-item-danger"><span
+                                        class="glyphicon glyphicon-remove"></span>您的账号已被封禁，无法发表帖子！
+                                </li>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -75,7 +77,7 @@
             <div class="post-group">
                 <div class="post-head">
                     <ul class="post-group-head">
-                        <li><a id="new"href="{{ url_for('front.index',st=1,bd=current_board) }}">最新</a></li>
+                        <li><a id="new" href="{{ url_for('front.index',st=1,bd=current_board) }}">最新</a></li>
                         <li><a id="highlight" href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖</a></li>
                         <li><a id="thumb" href="{{ url_for('front.index',st=3,bd=current_board) }}">点赞最多</a></li>
                         <li><a id="comment" href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
@@ -85,13 +87,15 @@
                     {% for post in posts %}
                         <li>
                             <div class="author-avatar-group">
-                                <img src="{{ post.author.avatar or static('common/images/avatar.png') }}" alt="用户头像">
+                                <img src="{{ post.author.avatar or static('common/images/avatar.png') }}"
+                                     alt="用户头像">
                             </div>
                             <div class="post-info-group">
-                                <p class="post-title"><a href="{{ url_for("front.post_detail",post_id=post.id) }}">{{ post.title }}</a>
-                                        {% if post.highlight %}
-                                            <span class="label label-danger">精华帖</span>
-                                        {% endif %}
+                                <p class="post-title"><a
+                                        href="{{ url_for("front.post_detail",post_id=post.id) }}">{{ post.title }}</a>
+                                    {% if post.highlight %}
+                                        <span class="label label-danger">精华帖</span>
+                                    {% endif %}
                                 </p>
                                 <p class="post-info">
                                     <span>作者:{{ post.author.username }}</span>
@@ -120,7 +124,13 @@
                     {% else %}
                         <a href="{{ url_for("front.index",bd=board.id) }}" class="list-group-item">
                     {% endif %}
-                <span class="badge">{{ board.posts | length }}</span>
+                    {% set ns = namespace(post_num = 0) %}
+                    {% for post in board.posts %}
+                        {% if not post.is_removed  %}
+                            {% set ns.post_num = ns.post_num + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    <span class="badge">{{ ns.post_num }}</span>
                 {{ board.name }}
                 </a>
                 {% endfor %}

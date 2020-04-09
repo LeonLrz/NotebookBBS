@@ -71,6 +71,7 @@ def posts():
     }
     return render_template('cms/cms_posts.html',**context)
 
+
 @bp.route('/hpost/',methods=['POST'])
 @login_required
 @permission_required(CMSPermission.POSTER)
@@ -101,6 +102,36 @@ def uhpost():
         return restful.params_error("没有这篇帖子！")
     highlight = HighlightPostModel.query.filter_by(post_id=post_id).first()
     db.session.delete(highlight)
+    db.session.commit()
+    return restful.success()
+
+
+@bp.route('/rmpost/',methods=['POST'])
+@login_required
+@permission_required(CMSPermission.POSTER)
+def rmpost():
+    post_id = request.form.get("post_id")
+    if not post_id:
+        return restful.params_error("请传入帖子id！")
+    post = PostModel.query.get(post_id)
+    if not post:
+        return restful.params_error("没有这篇帖子！")
+    post.is_removed = 1
+    db.session.commit()
+    return restful.success()
+
+
+@bp.route('/urmpost/',methods=['POST'])
+@login_required
+@permission_required(CMSPermission.POSTER)
+def urmpost():
+    post_id = request.form.get("post_id")
+    if not post_id:
+        return restful.params_error("请传入帖子id！")
+    post = PostModel.query.get(post_id)
+    if not post:
+        return restful.params_error("没有这篇帖子！")
+    post.is_removed = 0
     db.session.commit()
     return restful.success()
 

@@ -33,18 +33,18 @@ def index():
     end = start + config.PER_PAGE
     query_obj = None
     if sort == 1:
-        query_obj = PostModel.query.order_by(PostModel.create_time.desc())
+        query_obj = PostModel.query.filter(PostModel.is_removed == 0).order_by(PostModel.create_time.desc())
     elif sort == 2:
         # 加精的时间倒序排序
-        query_obj = db.session.query(PostModel).outerjoin(HighlightPostModel). \
+        query_obj = db.session.query(PostModel).filter(PostModel.is_removed == 0).outerjoin(HighlightPostModel). \
             order_by(HighlightPostModel.create_time.desc(), PostModel.create_time.desc())
     elif sort == 3:
         # 按点赞数量排序
-        query_obj = db.session.query(PostModel).outerjoin(PostStarModel).group_by(PostModel.id).\
+        query_obj = db.session.query(PostModel).filter(PostModel.is_removed == 0).outerjoin(PostStarModel).group_by(PostModel.id).\
             order_by(func.count(PostStarModel.id).desc(), PostModel.create_time.desc())
     elif sort == 4:
         # 按照评论数量排序
-        query_obj = db.session.query(PostModel).outerjoin(CommentModel).group_by(PostModel.id). \
+        query_obj = db.session.query(PostModel).filter(PostModel.is_removed == 0).outerjoin(CommentModel).group_by(PostModel.id). \
             order_by(func.count(CommentModel.id).desc(), PostModel.create_time.desc())
     if board_id:
         query_obj = query_obj.filter(PostModel.board_id == board_id)
