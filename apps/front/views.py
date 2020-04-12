@@ -18,6 +18,7 @@ from ..models import BannerModel, BoardModel, PostModel, CommentModel, Highlight
 from .decorators import login_required
 from flask_paginate import Pagination, get_page_parameter
 from sqlalchemy import func
+from datetime import datetime
 
 bp = Blueprint("front", __name__)
 
@@ -300,6 +301,8 @@ class SigninView(views.MethodView):
             remember = form.remember.data
             user = FrontUser.query.filter_by(telephone=telephone).first()
             if user and user.check_password(password):
+                user.last_login_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                db.session.commit()
                 session[config.FRONT_USER_ID] = user.id
                 if remember:
                     session.permanent = True

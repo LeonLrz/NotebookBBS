@@ -65,10 +65,10 @@
             评论数量：{{ current_user.comments|length }}
         </li>
         <li>
-            上次登录时间：{{ current_user.last_login_time }}
+            上次登录时间：{{ current_user.last_login_time |exact_time  }}
         </li>
         <li>
-            加入论坛时间：{{ current_user.joined_time }}
+            加入论坛时间：{{ current_user.join_time | exact_time}}
         </li>
     </ul>
 {% endblock %}
