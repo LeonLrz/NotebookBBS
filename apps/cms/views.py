@@ -415,8 +415,11 @@ def email_captcha():
     # 查询字符串方式传递邮箱
     # /email_captcha/?email=xxx@xx.com
     email = request.args.get("email")
+    old_email = g.cms_user.email
     if not email:
         return restful.params_error("请输入邮箱！")
+    if email == old_email:
+        return restful.params_error("请勿使用相同的邮箱！")
     source = list(string.ascii_letters)
     source.extend(map(str, range(0, 10)))
     captcha = "".join(random.sample(source, 6))
@@ -425,6 +428,7 @@ def email_captcha():
         "NotebooksBBS验证邮件",
         recipients=[email],
         body="您的验证码是：" + captcha)
+    mail.send(message)
     try:
         mail.send(message)
     except BaseException:

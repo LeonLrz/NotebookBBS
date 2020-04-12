@@ -9,16 +9,19 @@ from flask import (
     abort,
     redirect
 )
-from utils import restful, safeutils
-from .forms import SignupForm, SigninForm, AddPostForm, AddCommentForm,StarPostForm,SettingsForm
+from utils import restful, safeutils,mycache
+from .forms import SignupForm, SigninForm, AddPostForm, AddCommentForm,StarPostForm,SettingsForm,ResetEmailForm,ResetpwdForm
 from .models import FrontUser,LaptopInfo
-from exts import db
+from exts import db,mail
+from flask_mail import Message
 import config
 from ..models import BannerModel, BoardModel, PostModel, CommentModel, HighlightPostModel,PostStarModel
 from .decorators import login_required
 from flask_paginate import Pagination, get_page_parameter
 from sqlalchemy import func
 from datetime import datetime
+import string
+import random
 
 bp = Blueprint("front", __name__)
 
@@ -316,5 +319,74 @@ class SigninView(views.MethodView):
             return restful.params_error(message=form.get_error())
 
 
+class ResetPwdView(views.MethodView):
+    decorators = [login_required]
+
+    def get(self):
+        return render_template("front/front_resetpwd.html")
+
+    def post(self):
+        form = ResetpwdForm(request.form)
+        if form.validate():
+            oldpwd = form.oldpwd.data
+            newpwd = form.newpwd.data
+            user = g.front_user
+            if user.check_password(oldpwd):
+                user.password = newpwd
+                db.session.commit()
+                # {"code":200,"message":"密码错误"}
+                return restful.success()
+            else:
+                return restful.params_error("旧密码错误!")
+        else:
+            return restful.params_error(form.get_error())
+
+
+class ResetEmailView(views.MethodView):
+    decorators = [login_required]
+
+    def get(self):
+        return render_template("front/front_resetemail.html")
+
+    def post(self):
+        form = ResetEmailForm(request.form)
+        if form.validate():
+            email = form.email.data
+            g.front_user.email = email
+            db.session.commit()
+            return restful.success()
+        else:
+            return restful.params_error(form.get_error())
+
+
+@bp.route('/email_captcha/')
+def email_captcha():
+    # 查询字符串方式传递邮箱
+    # /email_captcha/?email=xxx@xx.com
+    email = request.args.get("email")
+    old_email = g.front_user.email
+    if not email:
+        return restful.params_error("请输入邮箱！")
+    if email == old_email:
+        return restful.params_error("请勿使用相同的邮箱！")
+    source = list(string.ascii_letters)
+    source.extend(map(str, range(0, 10)))
+    captcha = "".join(random.sample(source, 6))
+    # 给该邮箱发邮件
+    message = Message(
+        "NotebooksBBS验证邮件",
+        recipients=[email],
+        body="您正在绑定或修改邮箱！验证码是：" + captcha + "\n请勿告诉任何人！")
+    try:
+        mail.send(message)
+    except BaseException:
+        return restful.server_error("请输入正确的邮箱！")
+    mycache.set(email, captcha)
+    return restful.success("验证码发送成功！")
+
+
 bp.add_url_rule('/signup/', view_func=SignupView.as_view('signup'))
 bp.add_url_rule('/signin/', view_func=SigninView.as_view('signin'))
+bp.add_url_rule('/resetpwd/',
+                view_func=ResetPwdView.as_view('resetpwd'))
+bp.add_url_rule('/resetemail/', view_func=ResetEmailView.as_view('resetemail'))

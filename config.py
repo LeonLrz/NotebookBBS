@@ -24,17 +24,18 @@ CMS_USER_ID = 'wuyiyizifuchuan'
 FRONT_USER_ID = 'suibiangeide'
 
 # 发送者邮箱的服务器地址
-MAIL_SERVER = "smtp.qq.com"
-# qq不支持非加密ssl协议，ssl端口号为587/465
-# 使用TLS协议，端口号587
-# 使用SSL协议，端口号465
-MAIL_PORT = '587'
-MAIL_USE_TLS = True
-# MAIL_USE_SSL = True/False
+MAIL_SERVER = "smtp.163.com"
+# qq不支持非加密ssl协议，ssl端口号为587/465 使用TLS协议，端口号587/使用SSL协议，端口号465
+# 网易smtp协议端口 465/994
+MAIL_PORT = '25'
+# MAIL_USE_TLS = True
+# MAIL_USE_SSL = True
 # MAIL_DEBUG = True/False
-MAIL_USERNAME = "920592896@qq.com"
-MAIL_PASSWORD = "pvlblrcpuokybfhc"
-MAIL_DEFAULT_SENDER = "920592896@qq.com"
+MAIL_USERNAME = "15122229169@163.com"
+# MAIL_PASSWORD = "ozmwkaqkbmpfbcig"
+# MAIL_DEFAULT_SENDER = "920592896@qq.com"
+MAIL_PASSWORD = "AEYTJOOOCWYUWPPT"
+MAIL_DEFAULT_SENDER = "m18642127421@163.com"
 
 
 #七牛相关配置

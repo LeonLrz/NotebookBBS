@@ -1,7 +1,8 @@
 from wtforms import StringField,IntegerField,BooleanField
 from ..forms import BaseForm
-from wtforms.validators import Regexp,EqualTo,ValidationError,InputRequired,URL
+from wtforms.validators import Regexp,EqualTo,ValidationError,InputRequired,URL,Length,Email
 from utils import mycache
+from flask import g
 
 
 class SignupForm(BaseForm):
@@ -56,3 +57,27 @@ class SettingsForm(BaseForm):
     qq = StringField()
     avatar = StringField(validators=[URL(message=u'头像格式不对！')])
     signature = StringField()
+
+
+class ResetpwdForm(BaseForm):
+    oldpwd = StringField(validators=[Length(6,20,message="请输入正确格式的旧密码！")])
+    newpwd = StringField(validators=[Length(6,20,message="请输入正确格式的新密码！")])
+    newpwd2 = StringField(validators=[EqualTo("newpwd",message="两次请输入相同的密码！")])
+
+
+class ResetEmailForm(BaseForm):
+    email = StringField(validators=[Email(message='请输入正确格式的邮箱！')])
+    captcha = StringField(validators=[Length(min=6,max=6,message='请输入正确长度的验证码！')])
+
+    def validate_captcha(self,field):
+        captcha = field.data
+        email = self.email.data
+        captcha_cache = mycache.get(email)
+        if not captcha_cache or captcha.lower() != captcha_cache.lower():
+            raise ValidationError('邮箱验证码错误！')
+
+    def validate_email(self,field):
+        email = field.data
+        user = g.front_user
+        if user.email == email:
+            raise ValidationError("请勿使用相同邮箱！")

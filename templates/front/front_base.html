@@ -51,7 +51,9 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <li><a href="{{ url_for("front.profile",user_id=g.front_user.id) }}">个人中心</a></li>
-                            <li><a href="{{ url_for("front.settings") }}">设置</a></li>
+                            <li><a href="{{ url_for("front.settings") }}">资料设置</a></li>
+                            <li><a href="{{ url_for("front.resetemail") }}">修改邮箱</a></li>
+                            <li><a href="{{ url_for("front.resetpwd") }}">修改密码</a></li>
                             <li><a href="{{ url_for("front.logout") }}">注销</a></li>
                         </ul>
                     </li>
