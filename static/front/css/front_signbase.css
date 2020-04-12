@@ -2,10 +2,10 @@ body{
     background: #f3f3f3;
 }
 .outer-box{
-    width: 854px;
     background: #fff;
     margin: 0 auto;
     overflow: hidden;
+    height: 100vh;
 }
 .logo-box{
     text-align: center;

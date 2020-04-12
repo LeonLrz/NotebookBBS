@@ -359,16 +359,55 @@ class ResetEmailView(views.MethodView):
             return restful.params_error(form.get_error())
 
 
+@bp.route('/forget/')
+def forget():
+    return render_template('front/front_forgetpwd.html')
+
+
+@bp.route('/forgetpwd_chekemail/',methods=["GET","POST"])
+def forgetpwd_chekemail():
+    email = request.form.get("email")
+    captcha = request.form.get("captcha")
+    user = FrontUser.query.filter_by(email=email).first()
+    if not user:
+        return restful.params_error("该邮箱不存在！")
+    captcha_cache = mycache.get(email)
+    if not captcha_cache or captcha.lower() != captcha_cache.lower():
+        return restful.params_error('邮箱验证码错误！')
+    return restful.success(data={'user_id': user.id})
+
+
+@bp.route('/findpwd/<user_id>/',methods=["GET","POST"])
+def findpwd(user_id):
+    if request.method == "GET":
+        user = FrontUser.query.get(user_id)
+        return render_template("front/front_findpwd.html",user=user)
+    else:
+        newpwd = request.form.get("newpwd")
+        newpwd2 = request.form.get("newpwd2")
+        if newpwd != newpwd2:
+            return restful.params_error("两次密码输入不一致！")
+        user = FrontUser.query.get(user_id)
+        user.password = newpwd
+        db.session.commit()
+        return restful.success()
+
+
 @bp.route('/email_captcha/')
 def email_captcha():
     # 查询字符串方式传递邮箱
     # /email_captcha/?email=xxx@xx.com
     email = request.args.get("email")
-    old_email = g.front_user.email
+    forget_para = request.args.get('forget',type=int)
+    if forget_para != 1:
+        user = FrontUser.query.filter_by(email=email).first()
+        if user:
+            return restful.params_error("该邮箱已被占用，请更换邮箱！")
+        old_email = g.front_user.email
+        if email == old_email:
+            return restful.params_error("请勿使用相同的邮箱！")
     if not email:
         return restful.params_error("请输入邮箱！")
-    if email == old_email:
-        return restful.params_error("请勿使用相同的邮箱！")
     source = list(string.ascii_letters)
     source.extend(map(str, range(0, 10)))
     captcha = "".join(random.sample(source, 6))

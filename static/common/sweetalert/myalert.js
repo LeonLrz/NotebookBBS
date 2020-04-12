@@ -35,7 +35,7 @@ var myalert = {
             'title': '提示',
             'text': msg,
             'type': 'success',
-        }
+        };
         swal(args,confirmCallback);
     }, 
     /*

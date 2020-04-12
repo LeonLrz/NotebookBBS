@@ -418,6 +418,9 @@ def email_captcha():
     old_email = g.cms_user.email
     if not email:
         return restful.params_error("请输入邮箱！")
+    user = FrontUser.query.filter_by(email=email).first()
+    if user:
+        return restful.params_error("该邮箱已被占用，请更换邮箱！")
     if email == old_email:
         return restful.params_error("请勿使用相同的邮箱！")
     source = list(string.ascii_letters)

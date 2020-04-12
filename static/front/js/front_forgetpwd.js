@@ -3,17 +3,18 @@ $(function () {
         event.preventDefault();
         var self = $(this);
         var email = $("input[name='email']").val();
-        if(!email){
+        if (!email) {
             myalert.alertInfoToast("请输入邮箱");
             return;
         }
         myajax.get({
-            'url':'/cms/email_captcha/',
-            'data':{
-                'email':email
+            'url': '/email_captcha/',
+            'data': {
+                'email': email,
+                'forget':1
             },
-            'success':function (data) {
-                if(data['code']== 200){
+            'success': function (data) {
+                if (data['code'] == 200) {
                     myalert.alertSuccessToast("邮件发送成功！请注意查收！");
                     self.attr('disabled', 'disabled');
                     var timeCount = 60;
@@ -26,11 +27,11 @@ $(function () {
                             self.text("发送验证码");
                         }
                     }, 1000);
-                }else{
+                } else {
                     myalert.alertError(data['message']);
                 }
             },
-            'fail':function (error) {
+            'fail': function (error) {
                 myalert.alertNetworkError();
             }
         });
@@ -38,7 +39,7 @@ $(function () {
 });
 
 $(function () {
-    $("#submit").click(function (event) {
+    $("#next").click(function (event) {
         event.preventDefault();
         var emailE = $("input[name='email']");
         var captchaE = $("input[name='captcha']");
@@ -47,22 +48,23 @@ $(function () {
         var captcha = captchaE.val();
 
         myajax.post({
-            'url':'/cms/resetemail/',
-            'data':{
-                'email':email,
-                'captcha':captcha
+            'url': '/forgetpwd_chekemail/',
+            'data': {
+                'email': email,
+                'captcha': captcha
             },
-            'success':function (data) {
-                if(data['code'] == 200){
-                    myalert.alertSuccessToast("邮箱修改成功！");
-                    emailE.val("");
-                    captchaE.val("");
-                }else{
+            'success': function (data) {
+                if (data['code'] == 200) {
+                    myalert.alertSuccessToast("邮箱验证成功！");
+                //  跳转到修改密码界面
+                    var user_id = data['data']['user_id'];
+                    window.location = "/findpwd/"+user_id+"/";
+                } else {
                     myalert.alertInfo(data['message']);
                 }
 
             },
-            'fail':function (error) {
+            'fail': function (error) {
                 myalert.alertNetworkError();
             }
         })
