@@ -23,6 +23,8 @@
             });
         });
         $(function () {
+            var gender_id = $("#gender").attr('user-gender');
+            $("#gender").find("option[value="+gender_id+"]").prop("selected",true);
             $("#submit-btn").click(function (evnet) {
                 event.preventDefault();
                 var username = $('input[name=username]').val();
@@ -30,6 +32,7 @@
                 var qq = $('input[name=qq]').val();
                 var signature = $('#signature-area').val();
                 var avatar = $('#avatar-img').attr('src');
+                var gender = $("#gender option:selected").val();
 
                 myajax.post({
                     'url': '/settings/',
@@ -38,7 +41,8 @@
                         'realname': realname,
                         'qq': qq,
                         'signature': signature,
-                        'avatar':avatar
+                        'avatar':avatar,
+                        'gender':gender
                     },
                     'success': function (data) {
                         if(data['code'] == 200){
@@ -61,12 +65,21 @@
                 <input type="text" class="form-control" placeholder="请输入用户名" name="username" value="{{ g.front_user.username }}">
             </div>
             <div class="form-group">
+                    <label>QQ</label>
+                <input type="text" class="form-control" placeholder="请输入QQ" name="qq" value="{{ g.front_user.qq or '' }}">
+            </div>
+            <div class="form-group">
                 <label>真实姓名</label>
                 <input type="text" class="form-control" name="realname" placeholder="请输入真实姓名" value="{{ g.front_user.realname or '' }}">
             </div>
             <div class="form-group">
-                <label>QQ</label>
-                <input type="text" class="form-control" placeholder="请输入QQ" name="qq" value="{{ g.front_user.qq or '' }}">
+                <label>性别</label>
+                <select id="gender" class="combobox" user-gender="{{ g.front_user.gender }}">
+                  <option value="1">男</option>
+                  <option value="2">女</option>
+                  <option value="3">保密</option>
+                    <option value="4">未填写</option>
+                </select>
             </div>
             <div class="form-group">
                 <label>头像</label>

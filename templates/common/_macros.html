@@ -1,3 +1,15 @@
 {% macro static(filename) -%}
     {{ url_for('static',filename=filename) }}
 {%- endmacro %}
+
+{% macro num2gender(num) -%}
+    {% if num == 1 %}
+        {{ "男" }}
+    {% elif num == 2 %}
+        {{ "女" }}
+    {% elif num == 3 %}
+        {{ "保密" }}
+    {% elif num == 4 %}
+        {{ "未填写" }}
+    {% endif %}
+{%- endmacro %}

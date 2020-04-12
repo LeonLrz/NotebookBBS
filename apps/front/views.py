@@ -110,6 +110,7 @@ def settings():
             qq = form.qq.data
             avatar = form.avatar.data
             signature = form.signature.data
+            gender = request.form.get("gender",type=int)
 
             user_model = g.front_user
             user_model.username = username
@@ -121,6 +122,8 @@ def settings():
                 user_model.avatar = avatar
             if signature:
                 user_model.signature = signature
+            if gender:
+                user_model.gender = gender
             db.session.commit()
             return restful.success()
         else:

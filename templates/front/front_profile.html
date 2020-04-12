@@ -36,8 +36,7 @@
                     [隐藏]
                 {% endif %}
             </li>
-            <li>性别：
-                {{ current_user.gender or '保密' }}
+            <li>性别：{{ num2gender(current_user.gender) }}
             </li>
             <li>个性签名：{{ current_user.signature or '这个家伙很懒，没有留下什么~' }}</li>
             <li>
@@ -50,7 +49,7 @@
             <li>邮箱：[隐藏]</li>
             <li>QQ：[隐藏]</li>
             <li>真实姓名：[隐藏]</li>
-            <li>性别：{{ current_user.gender or '保密' }}</li>
+            <li>性别：{{ num2gender(current_user.gender) }}</li>
             <li>个性签名：{{ current_user.signature or '这个家伙很懒，没有留下什么~' }}</li>
             <li>论坛积分：{{ current_user.points }}</li>
         </ul>
