@@ -52,8 +52,8 @@ def logout():
 @permission_required(CMSPermission.POSTER)
 def posts():
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    start = (page - 1) * config.PER_PAGE
-    end = start + config.PER_PAGE
+    start = (page - 1) * 8
+    end = start + 8
     total = PostModel.query.count()
     pagination_config = {
         "bs_version": 3,

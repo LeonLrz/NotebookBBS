@@ -51,3 +51,7 @@ div.copyright {
     background: #286090;
     color: #e7e7e7;
 }
+
+.pagination-group{
+    text-align: center;
+}

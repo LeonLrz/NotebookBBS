@@ -161,11 +161,24 @@ def post_detail(post_id):
 
 @bp.route('/notebook/')
 def notebook():
-    notebooks = LaptopInfo.query.all()
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    start = (page - 1) * 12
+    end = start + 12
+    notebooks = LaptopInfo.query.slice(start, end)
+    total = LaptopInfo.query.count()
+    pagination_config = {
+        "bs_version": 3,
+        "page": page,
+        "total":total,
+        "outer_window": 0,
+        "inner_window": 2,
+    }
+    pagination = Pagination(**pagination_config)
     context = {
+        'pagination': pagination,
         'notebooks':notebooks
     }
-    return render_template('front/notebook.html',**context)
+    return render_template('front/notebooks.html', **context)
 
 
 class SignupView(views.MethodView):

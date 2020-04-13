@@ -1,0 +1,119 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    笔记本大全
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <!-- Page Header Start 页面-->
+    <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+        <div class="container">
+            <div class="title">
+                <h2 class="h1 text-white">笔记本大全</h2>
+            </div>
+
+            <ul class="breadcrumb text-gray ff--primary">
+                <li><a href="{{ url_for("front.index") }}" class="btn-link">首页</a></li>
+                <li class="active"><span class="text-primary">笔记本大全</span></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Page Wrapper Start -->
+    <section class="page--wrapper pt--80 pb--20">
+        <div class="container">
+            <div class="row">
+                <!-- Main Content Start -->
+                <div class="main--content col-md-12 pb--30">
+                    <div class="main--content-inner">
+                        <div class="row AdjustRow">
+                            {% for notebook in notebooks %}
+                                <div class="col-md-3 col-xs-6 col-xxs-12">
+                                    <!-- Product Item Start -->
+                                    <div class="product--item" data-scroll-reveal="bottom">
+                                        <!-- Product Image Start -->
+                                        <div class="product--img">
+                                            <img src="{{ notebook.pic }}" alt="">
+{#                                            <img src="{{ notebook.pic }}" alt="">#}
+
+                                            <div class="action">
+                                                <a href="product-details.html">
+                                                    <i class="fa fa-eye"></i>
+                                                    <span>了解详情</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- Product Image End -->
+
+                                        <!-- Product Info Start -->
+                                        <div class="product--info text-center">
+                                            <div class="cat">
+                                                <p>
+                                                    <a href="#" class="btn-link">品牌：{{ notebook.brand }}</a>
+                                                </p>
+                                            </div>
+
+                                            <div class="title">
+                                                <h3 class="h6">
+                                                    <a href="product-details.html"
+                                                       class="btn-link">{{ notebook.laptop_model }}</a>
+                                                </h3>
+                                            </div>
+
+                                            <div class="rating">
+                                                <ul class="nav">
+                                                    {% if notebook.rate %}
+                                                        {% set rate = notebook.rate |int %}
+                                                        {% if rate/2 - rate//2 >= 0.5 %}
+                                                            {% set hs = rate // 2  + 1 %}
+                                                        {% else %}
+                                                            {% set hs = rate // 2 %}
+                                                        {% endif %}
+                                                        {% set uhs = 5 - hs %}
+                                                        <li>{{ notebook.rate }}</li>
+                                                        {% for foo in range(hs) -%}
+                                                            <li><i class="fa fa-star text-primary"></i></li>
+                                                        {%- endfor %}
+                                                        {% for foo in range(uhs) -%}
+                                                            <li><i class="fa fa-star"></i></li>
+                                                        {%- endfor %}
+                                                    {% else %}
+                                                        <li>暂无评分</li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+
+                                            <div class="price text-darkest">
+                                                <p>{{ notebook.laptop_price }}</p>
+                                            </div>
+
+                                            <div class="action fs--14">
+                                                <a href="cart.html">添加对比</a>
+                                            </div>
+                                        </div>
+                                        <!-- Product Info End -->
+                                    </div>
+                                    <!-- Product Item End -->
+                                </div>
+                            {% endfor %}
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Main Content End -->
+            </div>
+        </div>
+    </section>
+    <!-- Page Wrapper End -->
+    <!-- Page Count Start -->
+    <div class="pagination-group">
+        {{ pagination.links }}
+    </div>
+    <!-- Page Count End -->
+{% endblock %}

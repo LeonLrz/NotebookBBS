@@ -89,13 +89,13 @@ def test_permission():
 
 @manager.command
 def create_test_post():
+    telephone = '15122229170'
+    author = FrontUser.query.filter_by(telephone=telephone).first()
+    name = "灌水专区"
+    board = BoardModel.query.filter_by(name=name).first()
     for x in range(1,24):
-        name = "华为笔记本"
         title = name+str(x)
         content = name + str(x)
-        board_id = BoardModel.query.filter_by(name=name).first().id
-        board = BoardModel.query.filter_by(id=board_id).first()
-        author = FrontUser.query.first()
         post = PostModel(title=title,content=content)
         post.board = board
         post.author = author
