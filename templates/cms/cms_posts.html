@@ -25,7 +25,7 @@
         {% for post in posts %}
             <tr data-id="{{ post.id }}" data-highlight="{{  1 if post.highlight else 0 }}" data-remove="{{  1 if post.is_removed else 0 }}">
                 <td><a target="_blank" href="{{ url_for("front.post_detail",post_id=post.id) }}">{{ post.title }}</a></td>
-                <td>{{ post.create_time }}</td>
+                <td>{{ post.create_time | exact_time }}</td>
                 <td>{{ post.board.name }}</td>
                 <td>{{ post.author.username }}</td>
                 <td>

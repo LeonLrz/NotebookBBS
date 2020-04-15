@@ -31,9 +31,9 @@
                 <tr>
                     <td>{{ front_user.username }}</td>
                     <td>{{ front_user.telephone }}</td>
-                    <td>{{ front_user.join_time }}</td>
-                    <td>暂未实现</td>
-                    <td>暂未实现</td>
+                    <td>{{ front_user.join_time | exact_time}}</td>
+                    <td>{{ front_user.posts | length }}</td>
+                    <td>{{ front_user.comments | length }}</td>
                     <td>
                         {% if front_user.is_active %}
                             <span class="label label-success">可用</span>
