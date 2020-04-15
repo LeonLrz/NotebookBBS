@@ -63,6 +63,7 @@ def posts():
         "inner_window": 2,
         "display_msg":'''本页展示第 <b>{start} - {end}</b> {record_name} 共有 <b>{total}</b>篇帖子''',
         "record_name": "篇帖子",
+        "per_page":8
     }
     pagination = Pagination(**pagination_config)
     context = {

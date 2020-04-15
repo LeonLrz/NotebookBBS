@@ -69,7 +69,7 @@ def index():
     return render_template("front/front_index.html", **context)
 
 
-@bp.route('/profile/<user_id>',methods=['GET'])
+@bp.route('/profile/<user_id>/',methods=['GET'])
 def profile(user_id=0):
     if not user_id:
         return abort(404)
@@ -92,7 +92,21 @@ def profile_posts():
 
     user = FrontUser.query.get(user_id)
     if user:
+        page = request.args.get(get_page_parameter(), type=int, default=1)
+        start = (page - 1) * 8
+        end = start + 8
+        posts = PostModel.query.filter_by(author_id=user_id).slice(start, end)
+        total_posts = PostModel.query.filter_by(author_id=user_id).count()
+        pagination_config = {
+            "bs_version": 3,
+            "outer_window": 0,
+            "inner_window": 2,
+            "per_page": 8
+        }
+        post_pagination = Pagination(**pagination_config,page=page,total=total_posts)
         context = {
+            'posts':posts,
+            'p_pagination':post_pagination,
             'current_user': user,
         }
         return render_template('front/front_profile_posts.html',**context)

@@ -9,7 +9,7 @@
 
 {% block body %}
     <div class="top-container">
-        <img src="{{ current_user.avatar or static("common/images/logo.png") }}" alt="{{ current_user.username }}" class="avatar-img">
+        <img src="{{ current_user.avatar or static("common/images/avatar.png") }}" alt="{{ current_user.username }}" class="avatar-img">
         <div class="info">
             <p class="username">{{ current_user.username }}</p>
             <div>
