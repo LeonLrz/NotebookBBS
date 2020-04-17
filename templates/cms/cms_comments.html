@@ -3,7 +3,7 @@
 {% block title %}评论管理{% endblock %}
 
 {% block head %}
-
+    <script src="{{ static('cms/js/comments.js') }}"></script>
 {% endblock %}
 
 {% block page_title %}
@@ -11,5 +11,40 @@
 {% endblock %}
 
 {% block main_content %}
-    我是评论管理
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>评论id</th>
+            <th>评论内容</th>
+            <th>发布时间</th>
+            <th>所属帖子</th>
+            <th>所属评论</th>
+            <th>发布者</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr data-id="{{ comment.id }}" data-remove="{{  1 if comment.is_removed else 0 }}">
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.content | striptags }}</td>
+                <td>{{ comment.create_time | exact_time }}</td>
+                <td><a target="_blank" href="{{ url_for("front.post_detail",post_id=comment.post.id) }}">{{ comment.post.title }}</a></td>
+                <td>{{ comment.origin_comment.id if comment.origin_comment.id else '无' }}</td>
+                <td>{{ comment.author.username }}</td>
+                <td>
+                    {% if comment.is_removed %}
+                        <button class="btn btn-default btn-xs remove-btn">恢复回复</button>
+                    {% else %}
+                        <button class="btn btn-danger btn-xs remove-btn">移除回复</button>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination-group">
+        {{ pagination.links }}
+        {{ pagination.info }}
+    </div>
 {% endblock %}

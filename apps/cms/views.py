@@ -19,7 +19,7 @@ from .forms import (
     UpdateBoardForm,
     CMSBlackFrontUserForm
 )
-from ..models import BannerModel, BoardModel,PostModel,HighlightPostModel
+from ..models import BannerModel, BoardModel,PostModel,HighlightPostModel,CommentModel
 from .models import CMSUser, CMSPermission
 from ..front.models import FrontUser
 from .decorators import login_required, permission_required
@@ -52,8 +52,8 @@ def logout():
 @permission_required(CMSPermission.POSTER)
 def posts():
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    start = (page - 1) * 8
-    end = start + 8
+    start = (page - 1) * config.PER_PAGE
+    end = start + config.PER_PAGE
     total = PostModel.query.count()
     pagination_config = {
         "bs_version": 3,
@@ -63,12 +63,13 @@ def posts():
         "inner_window": 2,
         "display_msg":'''本页展示第 <b>{start} - {end}</b> {record_name} 共有 <b>{total}</b>篇帖子''',
         "record_name": "篇帖子",
-        "per_page":8
+        "per_page":config.PER_PAGE
     }
     pagination = Pagination(**pagination_config)
+    posts = PostModel.query.order_by(PostModel.create_time.desc()).slice(start, end)
     context = {
         'pagination': pagination,
-        'posts':PostModel.query.order_by(PostModel.create_time.desc()).slice(start, end)
+        'posts':posts
     }
     return render_template('cms/cms_posts.html',**context)
 
@@ -141,7 +142,45 @@ def urmpost():
 @login_required
 @permission_required(CMSPermission.COMMENTER)
 def comments():
-    return render_template('cms/cms_comments.html')
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    start = (page - 1) * config.COMMENT_PER_PAGE
+    end = start + config.COMMENT_PER_PAGE
+    total = CommentModel.query.count()
+    comments = CommentModel.query.order_by(CommentModel.create_time.desc()).slice(start, end)
+    pagination_config = {
+        "bs_version": 3,
+        "page": page,
+        "total":total,
+        "outer_window": 0,
+        "inner_window": 2,
+        "display_msg":'''本页展示第 <b>{start} - {end}</b> {record_name} 共有 <b>{total}</b>个评论''',
+        "record_name": "个评论",
+        "per_page":config.COMMENT_PER_PAGE
+    }
+    pagination = Pagination(**pagination_config)
+    context = {
+        'comments':comments,
+        'pagination':pagination
+    }
+    return render_template('cms/cms_comments.html',**context)
+
+
+@bp.route('/manage_comment/',methods=['POST'])
+@login_required
+@permission_required(CMSPermission.POSTER)
+def mcomment():
+    comment_id = request.form.get("comment_id")
+    if not comment_id:
+        return restful.params_error("请传入回复id！")
+    comment = CommentModel.query.get(comment_id)
+    if not comment:
+        return restful.params_error("没有这个回复！")
+    if comment.is_removed:
+        comment.is_removed = 0
+    else:
+        comment.is_removed = 1
+    db.session.commit()
+    return restful.success()
 
 
 @bp.route('/boards/')

@@ -69,7 +69,8 @@
                         {% if post.comments %}
                             <ul class="comment-list">
                                 {% for comment in post.comments %}
-                                    <li>
+                                    {% if not comment.is_removed %}
+                                        <li>
                                         <div class="comment-img">
                                             <a href="{{ url_for('front.profile',user_id=comment.author.id) }}"
                                                target="_blank">
@@ -85,22 +86,28 @@
                                                 <span>{{ comment.create_time | exact_time }}</span>
                                             </p>
                                             {% if comment.origin_comment %}
+
                                                 <div class="origin-comment-group">
                                                     <blockquote>
-                                                <span><a
-                                                        href="{{ url_for("front.profile",user_id=comment.origin_comment.author.id) }}">@{{ comment.origin_comment.author.username }}</a>
-                                                发表于 {{ comment.origin_comment.create_time | exact_time }}</span>
-                                                        <span>{{ comment.origin_comment.content|safe }}</span>
+                                                        {% if comment.origin_comment.is_removed %}
+                                                            抱歉，该评论已被删除，暂时无法查看
+                                                        {% else %}
+                                                            <span><a href="{{ url_for("front.profile",user_id=comment.origin_comment.author.id) }}">@{{ comment.origin_comment.author.username }}</a>
+                                                    发表于 {{ comment.origin_comment.create_time | exact_time }}</span>
+                                                            <span>{{ comment.origin_comment.content|safe }}</span>
+                                                        {% endif %}
                                                     </blockquote>
+
                                                 </div>
                                             {% endif %}
-                                            <p class="comment-txt">{{ comment.content|safe }}</p>
+                                            <p class="comment-txt">{{ comment.content| safe }}</p>
                                             <div class="comment-btn">
                                                 <a href="{{ url_for('front.add_comment',post_id=post.id,comment_id=comment.id) }}"
                                                    class="reply-btn">回复</a>
                                             </div>
                                         </div>
                                     </li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         {% else %}
