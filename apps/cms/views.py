@@ -30,6 +30,7 @@ from utils import restful, mycache
 import string
 import random
 from flask_paginate import Pagination,get_page_parameter
+from sqlalchemy import func
 
 bp = Blueprint("cms", __name__, url_prefix="/cms")
 
@@ -257,13 +258,20 @@ def fusers():
     # 如果没有sort，默认按时间排序
     if not sort or sort == '1':
         front_users = FrontUser.query.order_by(FrontUser.join_time.desc()).all()
-    else:
-        front_users = FrontUser.query.all()
+    elif sort == '2':
+        front_users = db.session.query(FrontUser).outerjoin(PostModel).\
+                        group_by(FrontUser.id).order_by(func.count(PostModel.id).desc()).all()
+    elif sort == '3':
+        front_users = db.session.query(FrontUser).outerjoin(CommentModel). \
+            group_by(FrontUser.id).order_by(func.count(CommentModel.id).desc()).all()
+    elif sort == '4':
+        front_users = FrontUser.query.order_by(FrontUser.points.desc()).all()
     context = {
         'front_users': front_users,
         'current_sort': sort
     }
     return render_template('cms/cms_fusers.html', **context)
+
 
 @bp.route('/edit_frontuser/')
 @login_required

@@ -10,10 +10,11 @@
 {% block main_content %}
         <div class="top-box">
         <label>排序：</label>
-        <select class="top-select">
+        <select class="sort-select">
             <option value="1" {% if current_sort=='1' %}selected{% endif %}>按加入时间排序</option>
             <option value="2" {% if current_sort=='2' %}selected{% endif %}>按帖子量排序</option>
             <option value="3" {% if current_sort=='3' %}selected{% endif %}>按评论量排序</option>
+            <option value="4" {% if current_sort=='4' %}selected{% endif %}>按积分排序</option>
         </select>
     </div>
     <table class="table table-bordered">
@@ -23,6 +24,7 @@
             <th>加入时间</th>
             <th>发表帖子数</th>
             <th>评论数</th>
+            <th>积分</th>
             <th>状态</th>
             <th>操作</th>
         </thead>
@@ -34,6 +36,7 @@
                     <td>{{ front_user.join_time | exact_time}}</td>
                     <td>{{ front_user.posts | length }}</td>
                     <td>{{ front_user.comments | length }}</td>
+                    <td>{{ front_user.points }}</td>
                     <td>
                         {% if front_user.is_active %}
                             <span class="label label-success">可用</span>
