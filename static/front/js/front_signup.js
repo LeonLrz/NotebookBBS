@@ -101,5 +101,4 @@ $(function () {
 
 $(function () {
   $('[data-toggle="re_captcha"]').tooltip();
-  $('[data-toggle="send_captcha"]').tooltip();
 });

@@ -125,7 +125,7 @@ def settings():
             username = form.username.data
             realname = form.realname.data
             qq = form.qq.data
-            avatar = form.avatar.data
+            avatar = request.form.get("avatar")
             signature = form.signature.data
             gender = request.form.get("gender",type=int)
 
@@ -135,7 +135,7 @@ def settings():
                 user_model.realname = realname
             if qq:
                 user_model.qq = qq
-            if avatar:
+            if avatar != "/static/common/images/avatar.png":
                 user_model.avatar = avatar
             if signature:
                 user_model.signature = signature

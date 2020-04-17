@@ -5,56 +5,12 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ static('front/css/front_settings.css') }}">
     <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
     <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
     <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
     <script src="{{  static('common/myqiniu.js') }}"></script>
-    <script>
-        $(function () {
-            myqiniu.setUp({
-                'domain': 'http://q7ng4sydq.bkt.clouddn.com/',
-                'browse_btn': 'avatar-img',
-                'uptoken_url': '/c/uptoken/',
-                'success': function (up, file, info) {
-                    var imgTag = $('#avatar-img');
-                    imgTag.attr('src',file.name);
-                }
-            });
-        });
-        $(function () {
-            var gender_id = $("#gender").attr('user-gender');
-            $("#gender").find("option[value="+gender_id+"]").prop("selected",true);
-            $("#submit-btn").click(function (evnet) {
-                event.preventDefault();
-                var username = $('input[name=username]').val();
-                var realname = $('input[name=realname]').val();
-                var qq = $('input[name=qq]').val();
-                var signature = $('#signature-area').val();
-                var avatar = $('#avatar-img').attr('src');
-                var gender = $("#gender option:selected").val();
-
-                myajax.post({
-                    'url': '/settings/',
-                    'data':{
-                        'username': username,
-                        'realname': realname,
-                        'qq': qq,
-                        'signature': signature,
-                        'avatar':avatar,
-                        'gender':gender
-                    },
-                    'success': function (data) {
-                        if(data['code'] == 200){
-                            myalert.alertSuccessToast('恭喜！修改成功！');
-                        }else{
-                            myalert.alertInfoToast(data['message']);
-                        }
-                    }
-                })
-            });
-        });
-    </script>
+    <script src="{{ static("front/js/front_settings.js") }}"></script>
+    <link rel="stylesheet" href="{{ static('front/css/front_settings.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -84,7 +40,7 @@
             <div class="form-group">
                 <label>头像</label>
                 <div>
-                    <img src="{{ g.front_user.avatar or static('common/images/logo.png') }}" class="img-circle avatar-img" alt="点击选择头像" id="avatar-img">
+                    <img src="{{ g.front_user.avatar or static('common/images/avatar.png') }}" class="img-circle avatar-img" alt="点击选择头像" id="avatar-img" data-toggle="change_avatar" data-placement="right" title="点击更换头像">
                 </div>
             </div>
             <div class="form-group">

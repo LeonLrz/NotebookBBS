@@ -55,7 +55,7 @@ class SettingsForm(BaseForm):
     username = StringField(validators=[InputRequired(message=u'必须输入用户名！')])
     realname = StringField()
     qq = StringField()
-    avatar = StringField(validators=[URL(message=u'头像格式不对！')])
+    # avatar = StringField(validators=[URL(message=u'头像格式不对！')])
     signature = StringField()
 
 

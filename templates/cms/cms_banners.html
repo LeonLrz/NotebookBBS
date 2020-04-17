@@ -1,12 +1,11 @@
 {% extends 'cms/cms_base.html' %}
-{#{% from "common/_macros.html" import static %}#}
 
 {% block title %}
     轮播图管理
 {% endblock %}
 
 {% block head %}
-        <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
     <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
     <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
     <script src="{{ static("common/myqiniu.js") }}"></script>
