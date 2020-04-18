@@ -12,7 +12,6 @@
 .sm-container{
     width: 250px;
     float: right;
-
 }
 
 
@@ -25,6 +24,13 @@ ul.errorlist.nonfield{
     padding-right: 20px;
 }
 
+.navbar-default{
+    height: 58px;
+}
+
+ul.nav a{
+    padding: 18px;
+}
 
 footer.page-bottom {
     width: 100%;

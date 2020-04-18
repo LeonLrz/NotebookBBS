@@ -80,14 +80,14 @@
 
         <div class="col-sm-7 col-md-8 col-lg-8 col-lg-offset-1" style="padding-left: 0px;padding-right: 0px;">
             <div class="post-group">
-                <div class="post-head">
-                    <ul class="post-group-head">
-                        <li><a id="new" href="{{ url_for('front.index',st=1,bd=current_board) }}">最新</a></li>
-                        <li><a id="highlight" href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖</a></li>
-                        <li><a id="thumb" href="{{ url_for('front.index',st=3,bd=current_board) }}">点赞最多</a></li>
-                        <li><a id="comment" href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
+{#                <div class="post-head">#}
+                    <ul class="nav nav-tabs">
+                        <li role="presentation"><a id="new" href="{{ url_for('front.index',st=1,bd=current_board) }}">最新</a></li>
+                        <li role="presentation"><a id="highlight" href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖</a></li>
+                        <li role="presentation"><a id="thumb" href="{{ url_for('front.index',st=3,bd=current_board) }}">点赞最多</a></li>
+                        <li role="presentation"><a id="comment" href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
                     </ul>
-                </div>
+{#                </div>#}
                 <ul class="post-list-group">
                     {% for post in posts %}
                         <li>

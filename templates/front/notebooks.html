@@ -17,12 +17,22 @@
     <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
         <div class="container">
             <div class="title">
-                <h2 class="h1 text-white">笔记本大全</h2>
+                {% if brand %}
+                    <h2 class="h1 text-white">{{ brand }}</h2>
+                {% else %}
+                    <h2 class="h1 text-white">笔记本大全</h2>
+                {% endif %}
             </div>
 
             <ul class="breadcrumb text-gray ff--primary">
-                <li><a href="{{ url_for("front.index") }}" class="btn-link">首页</a></li>
-                <li class="active"><span class="text-primary">笔记本大全</span></li>
+                {% if brand %}
+                    <li><a href="{{ url_for("front.index") }}" class="btn-link">首页</a></li>
+                    <li><a href="{{ url_for("front.notebooks") }}" class="btn-link">笔记本大全</a></li>
+                    <li class="active"><span class="text-primary">{{ brand }}</span></li>
+                {% else %}
+                    <li><a href="{{ url_for("front.index") }}" class="btn-link">首页</a></li>
+                    <li class="active"><span class="text-primary">笔记本大全</span></li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -58,7 +68,7 @@
                                         <div class="product--info text-center">
                                             <div class="cat">
                                                 <p>
-                                                    <a href="#" class="btn-link">品牌：{{ notebook.brand }}</a>
+                                                    <a href="{{ url_for('front.notebooks',brand=notebook.brand) }}" class="btn-link">品牌：{{ notebook.brand }}</a>
                                                 </p>
                                             </div>
 

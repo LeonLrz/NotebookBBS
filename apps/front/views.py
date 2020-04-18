@@ -173,13 +173,18 @@ def post_detail(post_id):
     return render_template('front/front_pdetail.html', **context)
 
 
-@bp.route('/notebook/')
-def notebook():
+@bp.route('/notebooks/')
+def notebooks():
+    brand = request.args.get("brand")
     page = request.args.get(get_page_parameter(), type=int, default=1)
     start = (page - 1) * 12
     end = start + 12
-    notebooks = LaptopInfo.query.slice(start, end)
-    total = LaptopInfo.query.count()
+    if brand:
+        notebooks = LaptopInfo.query.filter_by(brand=brand).slice(start,end)
+        total = LaptopInfo.query.filter_by(brand=brand).count()
+    else:
+        notebooks = LaptopInfo.query.slice(start, end)
+        total = LaptopInfo.query.count()
     pagination_config = {
         "bs_version": 3,
         "page": page,
@@ -191,7 +196,8 @@ def notebook():
     pagination = Pagination(**pagination_config)
     context = {
         'pagination': pagination,
-        'notebooks':notebooks
+        'notebooks':notebooks,
+        'brand':brand
     }
     return render_template('front/notebooks.html', **context)
 
