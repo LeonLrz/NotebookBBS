@@ -1,0 +1,147 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}搜索结果{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static("front/css/front_search.css") }}">
+{% endblock %}
+
+
+{% block body %}
+    {% if not keyword %}
+        <div class="page-header">
+            <h1>您没有输入任何内容</h1>
+        </div>
+        <div class="result-content">您可以尝试输入点什么东西，例如：戴尔、小米。</div>
+    {% else%}
+        {% if type == 1 %}
+            <div class="page-header">
+                <h1>搜索“{{ keyword }}”,共找到{{ total }}篇帖子</h1>
+            </div>
+            <div>
+                {% if total != 0 %}
+                    {% for reslut in results %}
+                        <li>
+                            <div class="post-info-group">
+                                <p class="post-title">
+                                    <a href="{{ url_for("front.post_detail",post_id=reslut.id) }}">{{ reslut.title }}</a>
+                                    {% if reslut.highlight %}
+                                        <span class="label label-danger">精华帖</span>
+                                    {% endif %}
+                                </p>
+                                <p class="post-info">
+                                    <span>作者:{{ reslut.author.username }}</span>
+                                    <span>发表时间：{{ reslut.create_time | handle_time }}</span>
+                                    <span>评论：{{ reslut.comments | length }}</span>
+                                    <span>阅读：{{ reslut.read_count }}</span>
+                                    <span>点赞：{{ reslut.stars | length }}</span>
+                                </p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <div class="result-content">很抱歉未找到您搜索的内容，您可以试试搜索其他关键字。</div>
+                {% endif %}
+            </div>
+            <div class="pagination-group">
+                {{ pagination.links }}
+            </div>
+        {% elif type == 2 %}
+            <div class="page-header">
+                <h1>搜索“{{ keyword }}”,共找到{{ total }}个笔记本</h1>
+            </div>
+            {% if total != 0 %}
+                {% set notebooks = results %}
+                <section class="page--wrapper pt--80 pb--20">
+                <div class="container">
+                    <div class="row">
+                        <!-- Main Content Start -->
+                        <div class="main--content col-md-12 pb--30">
+                            <div class="main--content-inner">
+                                <div class="row AdjustRow">
+                                    {% for notebook in notebooks %}
+                                        <div class="col-md-3 col-xs-6 col-xxs-12">
+                                            <!-- Product Item Start -->
+                                            <div class="product--item" data-scroll-reveal="bottom">
+                                                <!-- Product Image Start -->
+                                                <div class="product--img">
+                                                    <img src="{{ notebook.pic }}" alt="">
+                                                    <div class="action">
+                                                        <a href="product-details.html">
+                                                            <i class="fa fa-eye"></i>
+                                                            <span>了解详情</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!-- Product Image End -->
+
+                                                <!-- Product Info Start -->
+                                                <div class="product--info text-center">
+                                                    <div class="cat">
+                                                        <p>
+                                                            <a href="#"
+                                                               class="btn-link">品牌：{{ notebook.brand }}</a>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="title">
+                                                        <h3 class="h6">
+                                                            <a href="product-details.html"
+                                                               class="btn-link" title="{{ notebook.laptop_model }}">{{ notebook.laptop_model | truncate(length=20) }}</a>
+                                                        </h3>
+                                                    </div>
+
+                                                    <div class="rating">
+                                                        <ul class="nav">
+                                                            {% if notebook.rate %}
+                                                                {% set rate = notebook.rate |int %}
+                                                                {% if rate/2 - rate//2 >= 0.5 %}
+                                                                    {% set hs = rate // 2  + 1 %}
+                                                                {% else %}
+                                                                    {% set hs = rate // 2 %}
+                                                                {% endif %}
+                                                                {% set uhs = 5 - hs %}
+                                                                <li>{{ notebook.rate }}</li>
+                                                                {% for foo in range(hs) -%}
+                                                                    <li>
+                                                                        <i class="fa fa-star text-primary"></i>
+                                                                    </li>
+                                                                {%- endfor %}
+                                                                {% for foo in range(uhs) -%}
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                {%- endfor %}
+                                                            {% else %}
+                                                                <li>暂无评分</li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="price text-darkest">
+                                                        <p>{{ notebook.laptop_price }}</p>
+                                                    </div>
+
+                                                    <div class="action fs--14">
+                                                        <a href="cart.html">添加对比</a>
+                                                    </div>
+                                                </div>
+                                                <!-- Product Info End -->
+                                            </div>
+                                            <!-- Product Item End -->
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Main Content End -->
+                    </div>
+                </div>
+            </section>
+                {% else %}
+                <div class="result-content">很抱歉未找到您搜索的内容，您可以试试搜索其他关键字。</div>
+            {% endif %}
+            <div class="pagination-group">
+                {{ pagination.links }}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

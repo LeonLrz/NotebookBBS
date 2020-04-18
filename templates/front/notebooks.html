@@ -8,6 +8,10 @@
 
 {% endblock %}
 
+{% block nav_nb_active %}
+    active
+{% endblock %}
+
 {% block body %}
     <!-- Page Header Start 页面-->
     <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
@@ -61,7 +65,7 @@
                                             <div class="title">
                                                 <h3 class="h6">
                                                     <a href="product-details.html"
-                                                       class="btn-link">{{ notebook.laptop_model }}</a>
+                                                       class="btn-link" title="{{ notebook.laptop_model }}">{{ notebook.laptop_model | truncate(length=20)}}</a>
                                                 </h3>
                                             </div>
 
@@ -111,9 +115,9 @@
         </div>
     </section>
     <!-- Page Wrapper End -->
-    <!-- Page Count Start -->
+    <!-- Pagination -->
     <div class="pagination-group">
         {{ pagination.links }}
     </div>
-    <!-- Page Count End -->
+    <!-- Pagination -->
 {% endblock %}

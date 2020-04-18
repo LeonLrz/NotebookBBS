@@ -57,7 +57,7 @@ def index():
     else:
         posts = query_obj.slice(start, end)
         total = query_obj.count()
-    pagination = Pagination(bs_version=3, page=page, total=total, outer_window=0, inner_window=2)
+    pagination = Pagination(bs_version=3, page=page, total=total, outer_window=0, inner_window=2,per_page_parameter=config.PER_PAGE)
     context = {
         'banners': banners,
         'boards': boards,
@@ -186,6 +186,7 @@ def notebook():
         "total":total,
         "outer_window": 0,
         "inner_window": 2,
+        "per_page":12
     }
     pagination = Pagination(**pagination_config)
     context = {
@@ -418,6 +419,48 @@ def findpwd(user_id):
         user.password = newpwd
         db.session.commit()
         return restful.success()
+
+
+@bp.route('/search/')
+def search():
+    s_type = int(request.args.get('type'))
+    s_keyword = request.args.get("kw").strip()
+    if not s_keyword:
+        results = None
+        page = 0
+        total = 0
+    else:
+        page = request.args.get(get_page_parameter(), type=int, default=1)
+        start = (page - 1) * 12
+        end = start + 12
+        if s_type == 1:
+            query_obj = PostModel.query.filter(PostModel.title.contains(s_keyword))\
+                .order_by(PostModel.create_time.desc())
+            results = query_obj.slice(start, end)
+            total = query_obj.count()
+        elif s_type == 2:
+            query_obj = LaptopInfo.query.filter(LaptopInfo.laptop_model.contains(s_keyword))\
+                .order_by(LaptopInfo.rate.desc())
+            results = query_obj.slice(start, end)
+            total = query_obj.count()
+
+    pagination_config = {
+        "bs_version": 3,
+        "page": page,
+        "total": total,
+        "outer_window": 0,
+        "inner_window": 2,
+        "per_page": 12
+    }
+    pagination = Pagination(**pagination_config)
+    context = {
+        'type': s_type,
+        'total':total,
+        'keyword': s_keyword,
+        'results': results,
+        'pagination':pagination
+    }
+    return render_template('front/front_search.html', **context)
 
 
 @bp.route('/email_captcha/')

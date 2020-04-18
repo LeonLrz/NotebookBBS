@@ -1,0 +1,37 @@
+.page-header{
+    margin-bottom: 0px;
+}
+
+.post-info-group{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    width: 85%;
+    padding-bottom: 00px;
+}
+
+.post-info-group .post-info{
+    margin-top: 10px;
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.post-title{
+    font-size: 16px;
+}
+
+.post-info span{
+    margin-right: 10px;
+}
+
+li{
+    list-style: none;
+}
+
+.result-content{
+    font-size: 18px;
+    height: 46vh;
+    padding-top: 20px;
+}
+
