@@ -89,6 +89,10 @@ article.post-content p {
     font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
+.post-content{
+    color: #080808;
+}
+
 article.post-content img{
     margin: 0 auto;
     max-width: 100%;

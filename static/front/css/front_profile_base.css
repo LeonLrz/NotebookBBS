@@ -58,7 +58,19 @@
     font-weight: bold;
     padding-bottom: 10px;
     border-bottom: 1px solid #e6e6e6;
+    font-size: 18px;
+    color: #0b0b0b;
 }
 .info-list li{
     padding: 10px 0;
+    font-size: 14px;
+    color: #333333;
+}
+
+.list-title{
+    color: #0b0b0b;
+}
+
+.bottom-container{
+    min-height: 42vh;
 }
