@@ -63,10 +63,10 @@
                   {% endif %}
 
                    {% if cms_user.has_permission(CMSPermission.CMSUSER) %}
-                         <li class="nav-group cmsuser-manage"><a href="{{ url_for('cms.cusers') }}">CMS用户管理</a></li>
+                         <li class="nav-group cmsuser-manage"><a href="{{ url_for('cms.cusers') }}">CMS用户</a></li>
                   {% endif %}
                   {% if cms_user.is_developer %}
-                         <li class="cmsrole-manage"><a href="{{ url_for('cms.croles') }}">CMS组管理</a></li>
+                         <li class="cmsrole-manage"><a href="{{ url_for('cms.croles') }}">CMS角色</a></li>
                   {% endif %}
 
             </ul>

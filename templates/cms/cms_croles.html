@@ -11,5 +11,30 @@
 {% endblock %}
 
 {% block main_content %}
-    我是角色组管理
+    <table class="table table-bordered">
+        <thead>
+            <th>角色名</th>
+            <th>权限描述</th>
+            <th>创建时间</th>
+            <th>下属用户</th>
+        </thead>
+        <tbody>
+            {% for role in roles %}
+                <tr>
+                    <td>{{ role.name }}</td>
+                    <td>{{ role.desc }}</td>
+                    <td>{{ role.create_time | exact_time}}</td>
+                    <td>
+                        {% if role.users %}
+                            {% for user in role.users  %}
+                                <span>{{ user.username }} </span>
+                            {% endfor %}
+                        {% else %}
+                            <span>暂无用户</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

@@ -20,7 +20,7 @@ from .forms import (
     CMSBlackFrontUserForm
 )
 from ..models import BannerModel, BoardModel,PostModel,HighlightPostModel,CommentModel
-from .models import CMSUser, CMSPermission
+from .models import CMSUser, CMSPermission, CMSRole
 from ..front.models import FrontUser
 from .decorators import login_required, permission_required
 import config
@@ -285,6 +285,7 @@ def edit_frontuser():
         abort(404)
     return render_template('cms/cms_editfrontuser.html',current_user=user)
 
+
 @bp.route('/black_front_user/',methods=['POST'])
 def black_front_user():
     form = CMSBlackFrontUserForm(request.form)
@@ -305,14 +306,20 @@ def black_front_user():
 @login_required
 @permission_required(CMSPermission.CMSUSER)
 def cusers():
-    return render_template('cms/cms_cusers.html')
+    # 默认按时间排序
+    cms_users = CMSUser.query.order_by(CMSUser.join_time.desc()).all()
+    context = {
+        'cms_users': cms_users,
+    }
+    return render_template('cms/cms_cusers.html', **context)
 
 
 @bp.route('/croles/')
 @login_required
 @permission_required(CMSPermission.ALL_PERMISSION)
 def croles():
-    return render_template('cms/cms_croles.html')
+    roles = CMSRole.query.order_by(CMSRole.permissions).all()
+    return render_template('cms/cms_croles.html',roles=roles)
 
 
 @bp.route('/banners/')

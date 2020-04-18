@@ -1,6 +1,6 @@
 {% extends 'cms/cms_base.html' %}
 
-{% block title %}CMS用户管理{% endblock %}
+{% block title %}CMS用户{% endblock %}
 
 {% block head %}
 
@@ -11,5 +11,30 @@
 {% endblock %}
 
 {% block main_content %}
-    我是CMS用户管理
+    <table class="table table-bordered">
+        <thead>
+            <th>用户名</th>
+            <th>邮箱</th>
+            <th>创建时间</th>
+            <th>所属角色</th>
+        </thead>
+        <tbody>
+            {% for cms_user in cms_users %}
+                <tr>
+                    <td>{{ cms_user.username }}</td>
+                    <td>{{ cms_user.email }}</td>
+                    <td>{{ cms_user.join_time | exact_time}}</td>
+                    <td>
+                        {% if cms_user.roles %}
+                            {% for role in cms_user.roles  %}
+                                <span>{{ role.name }} </span>
+                            {% endfor %}
+                        {% else %}
+                            <span>未分配角色</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
