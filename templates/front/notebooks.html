@@ -52,11 +52,11 @@
                                     <div class="product--item" data-scroll-reveal="bottom">
                                         <!-- Product Image Start -->
                                         <div class="product--img">
-                                            <img src="{{ notebook.pic }}" alt="">
+                                            <img src="{{ notebook.pic }}" alt="{{ notebook.laptop_model }}图片">
 {#                                            <img src="{{ notebook.pic }}" alt="">#}
 
                                             <div class="action">
-                                                <a href="product-details.html">
+                                                <a href="{{ url_for('front.notebook_detail',notebook_id=notebook.id) }}">
                                                     <i class="fa fa-eye"></i>
                                                     <span>了解详情</span>
                                                 </a>
@@ -74,7 +74,7 @@
 
                                             <div class="title">
                                                 <h3 class="h6">
-                                                    <a href="product-details.html"
+                                                    <a href="{{ url_for('front.notebook_detail',notebook_id=notebook.id) }}"
                                                        class="btn-link" title="{{ notebook.laptop_model }}">{{ notebook.laptop_model | truncate(length=20)}}</a>
                                                 </h3>
                                             </div>
@@ -107,7 +107,7 @@
                                             </div>
 
                                             <div class="action fs--14">
-                                                <a href="cart.html">添加对比</a>
+                                                <a href="#">添加对比</a>
                                             </div>
                                         </div>
                                         <!-- Product Info End -->

@@ -202,6 +202,19 @@ def notebooks():
     return render_template('front/notebooks.html', **context)
 
 
+@bp.route("/notebooks/<notebook_id>/")
+def notebook_detail(notebook_id):
+    notebook = LaptopInfo.query.get(notebook_id)
+    ranked_notebooks = LaptopInfo.query.filter_by(brand=notebook.brand).order_by(LaptopInfo.rate.desc()).limit(10)
+    related_notebooks = LaptopInfo.query.filter_by(laptop_position=notebook.laptop_position).order_by(LaptopInfo.rate.desc()).limit(4)
+    context = {
+        'notebook':notebook,
+        'ranked_notebooks':ranked_notebooks,
+        'related_notebooks':related_notebooks
+    }
+    return render_template('front/notebook_detail.html',**context)
+
+
 class SignupView(views.MethodView):
     def get(self):
         return_to = request.referrer

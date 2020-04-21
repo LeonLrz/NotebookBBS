@@ -1,0 +1,296 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    {{ notebook.laptop_model }}
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block nav_nb_active %}
+    active
+{% endblock %}
+
+{% block body %}
+
+
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+        <!-- Page Header Start -->
+        <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+            <div class="container">
+                <div class="title">
+                    <h2 class="h1 text-white">笔记本详情</h2>
+                </div>
+
+                <ul class="breadcrumb text-gray ff--primary">
+                    <li><a href="{{ url_for('front.index') }}" class="btn-link">首页</a></li>
+                    <li><a href="{{ url_for('front.notebooks') }}" class="btn-link">笔记本大全</a></li>
+                    <li class="active"><span class="text-primary">笔记本详情</span></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Page Header End -->
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pt--80 pb--20">
+            <div class="container">
+                <div class="row">
+                    <!-- Main Content Start -->
+                    <div class="main--content col-md-8" data-trigger="stickyScroll">
+                        <div class="main--content-inner">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-6 pb--60">
+                                    <!-- Product Gallery Start -->
+                                    <div class="product--gallery">
+                                        <!-- Tab Content Start -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="productImg01">
+                                                    <img src="{{ notebook.pic }}" alt="笔记本图片">
+                                            </div>
+                                        </div>
+                                        <!-- Tab Content End -->
+                                    </div>
+                                    <!-- Product Gallery End -->
+                                </div>
+
+                                <div class="col-md-7 col-sm-6 pb--60">
+                                    <!-- Product Summery Start -->
+                                    <div class="product--summery fs--14">
+                                        <div class="title">
+                                            <h3 class="h4">{{ notebook.laptop_model }}</h3>
+                                        </div>
+                                        <div class="cat">
+                                                <p>
+                                                    <a href="{{ url_for('front.notebooks',brand=notebook.brand) }}" class="btn-link">品牌：{{ notebook.brand }}</a>
+                                                </p>
+                                            </div>
+                                        <div class="rating">
+                                                <ul class="nav">
+                                                    {% if notebook.rate %}
+                                                        {% set rate = notebook.rate |int %}
+                                                        {% if rate/2 - rate//2 >= 0.5 %}
+                                                            {% set hs = rate // 2  + 1 %}
+                                                        {% else %}
+                                                            {% set hs = rate // 2 %}
+                                                        {% endif %}
+                                                        {% set uhs = 5 - hs %}
+                                                        <li>评分：{{ notebook.rate }}&nbsp;</li>
+                                                        {% for foo in range(hs) -%}
+                                                            <li><i class="fa fa-star text-primary"></i></li>
+                                                        {%- endfor %}
+                                                        {% for foo in range(uhs) -%}
+                                                            <li><i class="fa fa-star"></i></li>
+                                                        {%- endfor %}
+                                                    {% else %}
+                                                        <li>暂无评分</li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        <div class="price text-darkest">
+                                            <p><span class="text-default mr--10">{{ notebook.laptop_price }}</span></p>
+                                        </div>
+                                        <form action="#" class="cart">
+                                            <button type="submit" class="btn btn-default">添加到对比栏</button>
+                                        </form>
+                                    </div>
+                                    <!-- Product Summery End -->
+                                </div>
+                            </div>
+
+                            <!-- Product Details Nav Start -->
+                            <div class="product--details-nav">
+                                <ul class="nav ff--primary fs--18 fw--600 text-black bg-lighter">
+                                    <li class="active">
+                                        <a href="#produtDetailsTab01" data-toggle="tab">详细参数</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Product Details Nav End -->
+
+                            <!-- Product Details Start -->
+                            <div class="product--details tab-content pb--60">
+                                <!-- Tab Pane Start -->
+                                <div class="tab-pane fade in active" id="produtDetailsTab01">
+                                    <div class="content--inner fs--14">
+                                        <p>以下是{{ notebook.laptop_model }}的详细参数</p>
+                                        <table>
+                                            <tr>
+                                                <th>定位</th>
+                                                <td>{{ notebook.laptop_position }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CPU</th>
+                                                <td>{{ notebook.laptop_cpu }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CPU频率</th>
+                                                <td>{{ notebook.laptop_cpu_freq }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CPU核心</th>
+                                                <td>{{ notebook.laptop_cpu_core }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>显卡</th>
+                                                <td>{{ notebook.laptop_gpu }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>运行内存</th>
+                                                <td>{{ notebook.laptop_ram }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>存储内存</th>
+                                                <td>{{ notebook.laptop_rom }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>重量</th>
+                                                <td>{{ notebook.laptop_weight }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Tab Pane End -->
+                            </div>
+                            <!-- Product Details End -->
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                    <!-- Main Sidebar Start -->
+                    <div class="main--sidebar col-md-4 pb--60" data-trigger="stickyScroll">
+                        <!--  Search Widget Start -->
+                        <div class="widget">
+                            <!-- Search Widget Start -->
+                            <div class="search--widget" data-form="validate">
+                                <form action="{{ url_for('front.search') }}">
+                                    <input type="text" hidden name="type" value="2">
+                                    <input type="text" name="kw" placeholder="搜索笔记本" class="form-control" required>
+                                    <button type="submit" class="btn-link"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                            <!-- Search Widget End -->
+                        </div>
+                        <!-- SearchWidget End -->
+
+                        <!-- 笔记本电脑排行榜 Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">{{ notebook.brand }}笔记本电脑排行榜</h2>
+                            <!-- Links Start -->
+                            <div>
+                                <ul style="padding-left: 0px;">
+                                    {% for notebook in  ranked_notebooks %}
+                                        {% set addtion = "(" + notebook.laptop_cpu+"/"+notebook.laptop_ram+"/"+notebook.laptop_ram+")" %}
+                                        <li title="{{ addtion }}">
+                                            <a href="{{ url_for("front.notebook_detail",notebook_id = notebook.id) }}">
+                                              {{ notebook.rate or "暂无" }} / {{ notebook.laptop_model }}  {{ addtion | truncate(20) }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- Links End -->
+                        </div>
+                        <!-- 笔记本电脑排行榜 End -->
+                    </div>
+                    <!-- Main Sidebar End -->
+                </div>
+
+                <!-- Related Products Start -->
+                <div class="related--products">
+                    <h3 class="h4 pb--20">相关产品</h3>
+
+                    <div class="row AdjustRow">
+                        {% for notebook in related_notebooks %}
+                            <div class="col-md-3 col-xs-6 col-xxs-12">
+                                    <!-- Product Item Start -->
+                                    <div class="product--item" data-scroll-reveal="bottom">
+                                        <!-- Product Image Start -->
+                                        <div class="product--img">
+                                            <img src="{{ notebook.pic }}" alt="{{ notebook.laptop_model }}图片">
+{#                                            <img src="{{ notebook.pic }}" alt="">#}
+
+                                            <div class="action">
+                                                <a href="{{ url_for('front.notebook_detail',notebook_id=notebook.id) }}">
+                                                    <i class="fa fa-eye"></i>
+                                                    <span>了解详情</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!-- Product Image End -->
+
+                                        <!-- Product Info Start -->
+                                        <div class="product--info text-center">
+                                            <div class="cat">
+                                                <p>
+                                                    <a href="{{ url_for('front.notebooks',brand=notebook.brand) }}" class="btn-link">品牌：{{ notebook.brand }}</a>
+                                                </p>
+                                            </div>
+
+                                            <div class="title">
+                                                <h3 class="h6">
+                                                    <a href="{{ url_for('front.notebook_detail',notebook_id=notebook.id) }}"
+                                                       class="btn-link" title="{{ notebook.laptop_model }}">{{ notebook.laptop_model | truncate(length=20)}}</a>
+                                                </h3>
+                                            </div>
+
+                                            <div class="rating">
+                                                <ul class="nav">
+                                                    {% if notebook.rate %}
+                                                        {% set rate = notebook.rate |int %}
+                                                        {% if rate/2 - rate//2 >= 0.5 %}
+                                                            {% set hs = rate // 2  + 1 %}
+                                                        {% else %}
+                                                            {% set hs = rate // 2 %}
+                                                        {% endif %}
+                                                        {% set uhs = 5 - hs %}
+                                                        <li>{{ notebook.rate }}</li>
+                                                        {% for foo in range(hs) -%}
+                                                            <li><i class="fa fa-star text-primary"></i></li>
+                                                        {%- endfor %}
+                                                        {% for foo in range(uhs) -%}
+                                                            <li><i class="fa fa-star"></i></li>
+                                                        {%- endfor %}
+                                                    {% else %}
+                                                        <li>暂无评分</li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+
+                                            <div class="price text-darkest">
+                                                <p>{{ notebook.laptop_price }}</p>
+                                            </div>
+
+                                            <div class="action fs--14">
+                                                <a href="#">添加对比</a>
+                                            </div>
+                                        </div>
+                                        <!-- Product Info End -->
+                                    </div>
+                                    <!-- Product Item End -->
+                                </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+                <!-- Related Products End -->
+            </div>
+        </section>
+        <!-- Page Wrapper End -->
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Back To Top Button Start -->
+    <div id="backToTop">
+        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+    </div>
+    <!-- Back To Top Button End -->
+
+    <!-- ==== Plugins Bundle ==== -->
+    <script src="{{ static('front/js/plugins.min.js') }}"></script>
+
+    <!-- ==== Main Script ==== -->
+    <script src="{{ static('front/js/main.js') }} "></script>
+{% endblock %}
