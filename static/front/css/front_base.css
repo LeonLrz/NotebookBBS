@@ -61,3 +61,7 @@ div.copyright {
 .pagination-group{
     text-align: center;
 }
+
+.add-to-compare{
+    cursor: pointer;
+}

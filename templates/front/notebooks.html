@@ -49,11 +49,11 @@
                             {% for notebook in notebooks %}
                                 <div class="col-md-3 col-xs-6 col-xxs-12">
                                     <!-- Product Item Start -->
-                                    <div class="product--item" data-scroll-reveal="bottom">
+                                    <div data-id="{{ notebook.id }}" data-img="{{ notebook.pic }}" data-title="{{ notebook.laptop_model }}"
+                                         data-price="{{ notebook.laptop_price }}"  data-rate="{{ notebook.rate }}" class="product--item" data-scroll-reveal="bottom">
                                         <!-- Product Image Start -->
                                         <div class="product--img">
                                             <img src="{{ notebook.pic }}" alt="{{ notebook.laptop_model }}图片">
-{#                                            <img src="{{ notebook.pic }}" alt="">#}
 
                                             <div class="action">
                                                 <a href="{{ url_for('front.notebook_detail',notebook_id=notebook.id) }}">
@@ -107,7 +107,7 @@
                                             </div>
 
                                             <div class="action fs--14">
-                                                <a href="#">添加对比</a>
+                                                <a class="add-to-compare">添加对比</a>
                                             </div>
                                         </div>
                                         <!-- Product Info End -->

@@ -24,6 +24,16 @@
     <!-- ==== Custom Stylesheet ==== -->
     <link rel="stylesheet" href="{{ static("front/css/custom.css") }}">
     <link rel="stylesheet" href="{{ static('front/css/front_base.css') }}">
+    <link rel="stylesheet" href="{{ static('front/css/front_nav.css') }}">
+    <!-- ==== Plugins Bundle ==== -->
+    <script src="{{ static('front/js/plugins.min.js') }}"></script>
+    <!-- ==== Main Script ==== -->
+    <script src="{{ static('front/js/main.js') }} "></script>
+    <script src="{{ static("common/cookie.js") }}"></script>
+    <script src="{{ static("common/jquerysession.js") }}"></script>
+    <script src="{{ static("common/cookie.js") }}"></script>
+    <script src="{{ static("common/json2.js") }}"></script>
+    <script type="text/javascript" src = '{{ static('front/js/front_nav.js') }}'></script>
     <title>
         {% block title %}{% endblock %}
     </title>
@@ -89,6 +99,58 @@
 </nav>
 <div class="container">
     {% block body %}{% endblock %}
+<div class="J-global-toolbar">
+	<div class="toolbar-wrap J-wrap">
+		<div class="toolbar">
+			<div class="toolbar-panels J-panel">
+				<div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-cart toolbar-animate-out">
+					<h3 class="tbar-panel-header J-panel-header">
+						<a href="" class="title">
+                            <em class="title">要对比的产品</em>
+                        </a>
+						<span class="close-panel J-close"></span>
+					</h3>
+
+					<div class="tbar-panel-main">
+						<div class="tbar-panel-content J-panel-content">
+							<div id="J-cart-render">
+								<div class="tbar-cart-list">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tbar-panel-footer J-panel-footer">
+						<div class="tbar-checkout">
+                            <div class="jtc-number">最多选择<strong class="J-count">5</strong>件产品</div>
+                            <div class="jtc-sum"> 当前已选<strong class="J-total">0</strong>件</div>
+							<a class="jtc-btn J-btn" href="#none" target="_blank">对比参数</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="toolbar-header"></div>
+
+			<div class="toolbar-tabs J-tab">
+				<div class="toolbar-tab tbar-tab-cart">
+					<i class="tab-ico"></i>
+					<em class="tab-text">对比栏</em>
+					<span class="tab-sub J-count ">1</span>
+				</div>
+			</div>
+
+			<div class="toolbar-footer">
+                <div class="toolbar-tab tbar-tab-top"> <a href="#"> <i class="tab-ico  "></i> <em class="footer-tab-text">顶部</em> </a> </div>
+			</div>
+
+			<div class="toolbar-mini"></div>
+
+		</div>
+
+		<div id="J-toolbar-load-hook"></div>
+	</div>
+</div>
 </div>
 
 <footer class="page-bottom">
