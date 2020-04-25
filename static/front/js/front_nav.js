@@ -20,10 +20,17 @@ $(function () {
 		console.log(list[i].productID,list[i].productImg,list[i].productTitle,list[i].productPrice);
 	}
 	$('.J-total').text(String(list.length));
+	if (list.length > 1) {
+		$("#compare").removeAttr('disabled');
+		$("#compare").css("pointer-events","auto");
+	} else {
+		$("#compare").attr("disabled",true);
+		$("#compare").css("pointer-events","none");
+	}
 });
 
 
-$(document).ready(function(){
+$(function(){
 	// 鼠标在商品上添加删除按钮
 	$('.tbar-cart-item').hover(function (){
 			$(this).find('.p-del').show();
@@ -51,13 +58,13 @@ $(document).ready(function(){
 		});
 
 	// 点击对比栏图标，显示要对比的内容
-	$('.tbar-tab-cart').click(function (){ 
+	$('.tbar-tab-cart').click(function (){
 		if($('.toolbar-wrap').hasClass('toolbar-open')){
 			if($(this).find('.tab-text').length > 0){
-				$(this).addClass('tbar-tab-click-selected'); 
+				$(this).addClass('tbar-tab-click-selected');
 				$(this).find('.tab-text').remove();
 				$('.tbar-panel-cart').css({'visibility':"visible","z-index":"1"});
-				
+
 			}else{
 				var info = "<em class='tab-text '>对比栏</em>";
 				$('.toolbar-wrap').removeClass('toolbar-open');
@@ -65,11 +72,11 @@ $(document).ready(function(){
 				$(this).removeClass('tbar-tab-click-selected');
 				$('.tbar-panel-cart').css({'visibility':"hidden","z-index":"-1"});
 			}
-		}else{ 
-			$(this).addClass('tbar-tab-click-selected'); 
+		}else{
+			$(this).addClass('tbar-tab-click-selected');
 			$(this).find('.tab-text').remove();
 			$('.tbar-panel-cart').css({'visibility':"visible","z-index":"1"});
-			$('.toolbar-wrap').addClass('toolbar-open'); 
+			$('.toolbar-wrap').addClass('toolbar-open');
 		}
 	});
 
@@ -93,10 +100,10 @@ $(document).ready(function(){
 		}
 		if(inArray < 0){
 			// 最多对比5个
-			if(list.length > 4){
-				myalert.alertInfoToast("最多可对比5个产品~")
+			if(list.length > 7){
+				myalert.alertInfoToast("最多可对比8个产品~")
 			}
-			if(list.length < 5){
+			if(list.length < 8){
 				var productImg = product.attr("data-img");
 				var productTitle = product.attr("data-title");
 				var productPrice = product.attr("data-price");
@@ -125,34 +132,49 @@ $(document).ready(function(){
 
 		}
 
+		// 对比按钮
+        if (list.length > 1) {
+            $("#compare").removeAttr('disabled');
+            $("#compare").css("pointer-events","auto");
+        } else {
+            $("#compare").attr("disabled",true);
+            $("#compare").css("pointer-events","none");
+        }
 		$('.tbar-tab-cart').find('.tab-text').remove();
 		$('.tbar-panel-cart').css({'visibility':"visible","z-index":"1"});
 		$('.toolbar-wrap').addClass('toolbar-open');
 	});
 
+
 });
 
 $(function () {
-
-//	从对比栏移除
-$(".p-del").click(function (event){
-	var product = $(this).parents(".tbar-cart-item");
-	var pid = product.attr("data-id");
-	console.log(product,pid);
-	product.remove();
-	for (var i = 0; i < list.length;i++){
-		console.log(list[i].productID,pid);
-		if( list[i].productID == pid ){
-			list.splice(i,1);
-			return;
-		}
-	}
-	$.cookie(
-		"products_list",
-		JSON.stringify(list),
-		{path: '/' }
-		);
-		//将数组转换为Json字符串保存在cookie中
-	$('.J-total').text(String(list.length));
-});
+    //	从对比栏移除
+    $(".p-del").click(function (event){
+        var product = $(this).parents(".tbar-cart-item");
+        var pid = product.attr("data-id");
+        console.log(product,pid);
+        product.remove();
+        for (var i = 0; i < list.length;i++){
+            console.log(list[i].productID,pid);
+            if( list[i].productID == pid ){
+                list.splice(i,1);
+            }
+        }
+        $.cookie(
+            "products_list",
+            JSON.stringify(list),
+            {path: '/' }
+            );
+            //将数组转换为Json字符串保存在cookie中
+        $('.J-total').text(String(list.length));
+            // 对比按钮
+        if (list.length > 1) {
+            $("#compare").removeAttr('disabled');
+            $("#compare").css("pointer-events","auto");
+        } else {
+            $("#compare").attr("disabled",true);
+            $("#compare").css("pointer-events","none");
+        }
+    });
 });

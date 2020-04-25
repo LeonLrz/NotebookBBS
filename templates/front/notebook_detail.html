@@ -118,7 +118,7 @@
                             <div class="tab-pane fade in active" id="produtDetailsTab01">
                                 <div class="content--inner fs--14">
                                     <p>以下是{{ notebook.laptop_model }}的详细参数</p>
-                                    <table>
+                                    <table class="table-hover">
                                         <tr>
                                             <th>定位</th>
                                             <td>{{ notebook.laptop_position }}</td>
@@ -136,15 +136,15 @@
                                             <td>{{ notebook.laptop_cpu_core }}</td>
                                         </tr>
                                         <tr>
-                                            <th>显卡</th>
+                                            <th>GPU显卡</th>
                                             <td>{{ notebook.laptop_gpu }}</td>
                                         </tr>
                                         <tr>
-                                            <th>运行内存</th>
+                                            <th>RAM运行内存</th>
                                             <td>{{ notebook.laptop_ram }}</td>
                                         </tr>
                                         <tr>
-                                            <th>存储内存</th>
+                                            <th>ROM硬盘</th>
                                             <td>{{ notebook.laptop_rom }}</td>
                                         </tr>
                                         <tr>

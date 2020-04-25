@@ -60,7 +60,7 @@
             <ul class="nav navbar-nav">
                 <li class="{% block nav_home_active %} {% endblock %}"><a href="/">首页<span class="sr-only">(current)</span></a></li>
                 <li class="{% block nav_nb_active %} {% endblock %}"><a href="{{ url_for("front.notebooks") }}">笔记本大全</a></li>
-                <li class="{% block nav_nbpara_active %} {% endblock %}"><a href="/">笔记本参数百科</a></li>
+                <li class="{% block nav_nbpara_active %} {% endblock %}"><a href="{{ url_for("front.notebook_params") }}">笔记本参数科普</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if g.front_user %}
@@ -122,9 +122,11 @@
 
 					<div class="tbar-panel-footer J-panel-footer">
 						<div class="tbar-checkout">
-                            <div class="jtc-number">最多选择<strong class="J-count">5</strong>件产品</div>
+                            <div class="jtc-number">最多选择<strong class="J-count">8</strong>件产品</div>
                             <div class="jtc-sum"> 当前已选<strong class="J-total">0</strong>件</div>
-							<a class="jtc-btn J-btn" href="#none" target="_blank">对比参数</a>
+							    <a  id="compare" class="btn jtc-btn J-btn" target="_blank" href='{{ url_for("front.notebooks_compare") }}'>
+                                        对比参数
+                                </a>
 						</div>
 					</div>
 				</div>
@@ -136,7 +138,7 @@
 				<div class="toolbar-tab tbar-tab-cart">
 					<i class="tab-ico"></i>
 					<em class="tab-text">对比栏</em>
-					<span class="tab-sub J-count ">1</span>
+					<span class="tab-sub J-total">0</span>
 				</div>
 			</div>
 

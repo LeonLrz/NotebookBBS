@@ -1,0 +1,59 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    笔记本参数科普
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static("front/css/notebook_params.css") }}">
+    <script type="text/javascript" src="{{ static("front/js/notebook_params.js") }}"></script>
+{% endblock %}
+
+{% block nav_nbpara_active %}
+    active
+{% endblock %}
+
+{% block body %}
+    <div class="container-inner">
+        <div class="page-header">
+            <h1>笔记本参数科普</h1>
+        </div>
+    </div>
+    <div id="TabMain">
+        <div class="tabItemContainer">
+            <li><a class="tabItemCurrent">CPU</a></li>
+            <li><a>CPU 频率</a></li>
+            <li><a>CPU 核心/线程数</a></li>
+            <li><a>GPU 显卡</a></li>
+            <li><a>RAM 运行内存</a></li>
+            <li><a>ROM 硬盘</a></li>
+        </div>
+        <div class="tabBodyContainer">
+            <div class="tabBodyItem tabBodyCurrent">
+                <p>中央处理器的简称，是笔记本的大脑，影响笔记本性能的最重要指标。</p>
+                <p>主要是两大品牌英特尔和AMD，英特尔中的酷睿系列以及AMD的锐龙系列是在民用领域使用最广的产品。</p>
+            </div>
+            <div class="tabBodyItem">
+                <p>CPU运行时的时钟频率。</p>
+                <p>CPU运算时每秒工作的数量，是决定CPU乃至的整个计算机系统运行速度的关键因素。</p>
+            </div>
+            <div class="tabBodyItem">
+                <p>目前市场上绝大多数的CPU都是多核心CPU。</p>
+                <p>每个CPU核心代表一个单独的逻辑运算单元，核心数目越多代表多任务处理能力越强。</p>
+            </div>
+            <div class="tabBodyItem">
+                <p>图形处理单元的简称。</p>
+                <p>目前市场上主要是英伟达和AMD两家公司的产品，主要负责处理计算机的图像显示需求，如游戏以及专业渲染等。</p>
+            </div>
+            <div class="tabBodyItem">
+                <p>作用是用于暂时存放CPU中的运算数据以及与硬盘等外部存储器交换的数据。</p>
+                <p>内存的大小同样是影响电脑整体使用体验的关键因素。</p>
+            </div>
+            <div class="tabBodyItem">
+                <p>电脑硬盘是计算机最主要的存储设备。</p>
+                <p>目前市面上的硬盘主要分为两类：传统机械硬盘和SSD固态硬盘，机械硬盘容量大价格便宜但速度慢，固态硬盘单位容量价格高但速度非常快。</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

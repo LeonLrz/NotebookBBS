@@ -1,0 +1,84 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    笔记本产品对比
+{% endblock %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ static("front/css/compare_reset.css") }}">
+    <link rel="stylesheet" href="{{ static("front/css/compare_demo.css") }}">
+    <link rel="stylesheet" href="{{ static("front/css/compare_style.css") }}">
+    <script src="{{ static("front/js/compare_main.js") }}"></script>
+{% endblock %}
+
+{% block nav_nb_active %}
+    active
+{% endblock %}
+
+{% block body %}
+    <section class="cd-products-comparison-table">
+	<header>
+		<h2>笔记本产品对比</h2>
+
+		<div class="actions">
+			<a href="#0" class="reset">重置</a>
+			<a href="#0" class="filter">比较</a>
+		</div>
+	</header>
+
+	<div class="cd-products-table">
+		<div class="features">
+			<div class="top-info">笔记本</div>
+			<ul class="cd-features-list">
+                <li>价格</li>
+                <li>评分</li>
+                <li>品牌</li>
+				<li>定位</li>
+				<li>CPU</li>
+				<li>CPU频率</li>
+				<li>CPU核心</li>
+				<li>GPU显卡</li>
+				<li>RAM运行内存</li>
+				<li>ROM硬盘</li>
+				<li>重量</li>
+			</ul>
+		</div> <!-- .features -->
+
+		<div class="cd-products-wrapper">
+			<ul class="cd-products-columns">
+				{% for notebook in notebooks %}
+				    <li class="product">
+					<div class="top-info">
+						<div class="check"></div>
+						<img src="{{ notebook.pic }}" alt="product image">
+						<h3>{{ notebook.laptop_model }}</h3>
+					</div> <!-- .top-info -->
+
+					<ul class="cd-features-list">
+						<li>{{ notebook.laptop_price }}</li>
+						<li><span>{{ notebook.rate or "暂无" }}</span></li>
+						<li>{{ notebook.brand }}</li>
+						<li>{{ notebook.laptop_position }}</li>
+						<li>{{ notebook.laptop_cpu }}</li>
+						<li>{{ notebook.laptop_cpu_freq }}</li>
+						<li>{{ notebook.laptop_cpu_core }}</li>
+						<li>{{ notebook.laptop_gpu }}</li>
+						<li>{{ notebook.laptop_ram }}</li>
+						<li>{{ notebook.laptop_rom }}</li>
+						<li>{{ notebook.laptop_weight }}</li>
+					</ul>
+				</li> <!-- .product -->
+				{% endfor %}
+			</ul> <!-- .cd-products-columns -->
+		</div> <!-- .cd-products-wrapper -->
+
+		<ul class="cd-table-navigation">
+			<li><a href="#0" class="prev inactive">Prev</a></li>
+			<li><a href="#0" class="next">Next</a></li>
+		</ul>
+	</div> <!-- .cd-products-table -->
+</section> <!-- .cd-products-comparison-table -->
+{% endblock %}

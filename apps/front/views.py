@@ -7,7 +7,8 @@ from flask import (
     url_for,
     g,
     abort,
-    redirect
+    redirect,
+    json
 )
 from utils import restful, safeutils,mycache
 from .forms import SignupForm, SigninForm, AddPostForm, AddCommentForm,StarPostForm,SettingsForm,ResetEmailForm,ResetpwdForm
@@ -22,6 +23,7 @@ from sqlalchemy import func
 from datetime import datetime
 import string
 import random
+import urllib
 
 bp = Blueprint("front", __name__)
 
@@ -213,6 +215,22 @@ def notebook_detail(notebook_id):
         'related_notebooks':related_notebooks
     }
     return render_template('front/notebook_detail.html',**context)
+
+
+@bp.route("/notebook/params/")
+def notebook_params():
+    return render_template("front/notebook_params.html")
+
+
+@bp.route("/notebooks/compare/")
+def notebooks_compare():
+    products_list = urllib.parse.unquote(request.cookies.get('products_list'))
+    products_list = json.loads(products_list)
+    notebooks = []
+    for product in products_list:
+        notebook = LaptopInfo.query.get(product['productID'])
+        notebooks.append(notebook)
+    return render_template("front/notebooks_compare.html",notebooks=notebooks)
 
 
 class SignupView(views.MethodView):
