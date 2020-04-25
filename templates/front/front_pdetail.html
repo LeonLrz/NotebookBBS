@@ -54,7 +54,7 @@
 
                     {% for star in post.stars %}
                         <a href="{{ url_for('front.profile',user_id=star.author.id) }}" target="_blank">
-                            <img src="{{ static('common/images/avatar.png') }}" alt="用户头像">
+                            <img src="{{ star.author.avatar or static('common/images/avatar.png') }}" alt="用户头像">
                         </a>
                     {% endfor %}
                 </div>

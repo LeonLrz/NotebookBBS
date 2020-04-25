@@ -336,7 +336,7 @@ def abanner():
     if form.validate():
         name = form.name.data
         image_url = form.image_url.data
-        link_url = form.image_url.data
+        link_url = form.link_url.data
         priority = form.priority.data
         banner = BannerModel(
             name=name,
