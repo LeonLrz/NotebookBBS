@@ -111,7 +111,7 @@ $(function () {
 
 $(function () {
     myqiniu.setUp({
-        'domain': 'http://q7ng4sydq.bkt.clouddn.com/',
+        'domain': 'http://q9c8vn8oy.bkt.clouddn.com/',
         'browse_btn': 'upload-btn',
         'uptoken_url': '/c/uptoken/',
         'success': function (up, file, info) {

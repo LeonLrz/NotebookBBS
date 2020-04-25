@@ -41,9 +41,9 @@ MAIL_DEFAULT_SENDER = "m18642127421@163.com"
 #七牛相关配置
 QINIU_ACCESS_KEY = 'yyuGQ23-tev5MH3frrHRlywopGfNOSo1jFuJ0WMR'
 QINIU_SECRET_KEY = 'QoM8Tta-a3epznleHtq-tuyn59w92HIaH34vGxjy'
-QINIU_BUCKET_NAME = 'lrzleonstore'
+QINIU_BUCKET_NAME = 'lrzleon'
 # 这个域名需要到用到七牛的js文件中去配置，如front_settings.html/ cms_banners.js
-QINIU_DOMAIN = 'http://q7ng4sydq.bkt.clouddn.com/'
+QINIU_DOMAIN = 'http://q9c8vn8oy.bkt.clouddn.com/'
 
 # UEditor的相关配置
 # UEditor 使用七牛作为存储文件的服务器

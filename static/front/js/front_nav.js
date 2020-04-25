@@ -13,7 +13,7 @@ $(function () {
 		$(".tbar-cart-list").append(
 		'<div data-id="'+
 			list[i].productID+'" class="tbar-cart-item" ><div class="jtc-item-goods"><span class="p-img"><a href="#"><img src="'+
-		list[i].productImg+'" height="50px;" width="66px;" /></a></span><div class="p-name"> <a href="">'+
+		list[i].productImg+'" height="50px;" width="66px;" /></a></span><div class="p-name"> <a href="#">'+
 		list[i].productTitle+'</a> </div> <div class="p-price"><strong>'+
 		list[i].productPrice+'</strong></div><a class="p-del J-del">删除</a></div></div>'
 		);
