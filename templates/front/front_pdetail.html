@@ -79,15 +79,14 @@
                                                      alt="评论者头像">
                                             </a>
                                         </div>
-                                        <div class="comment-content">
+                                        <div class="comment-content restrict-img">
                                             <p class="author-info">
                                                 <span><a
                                                         href="{{ url_for("front.profile",user_id=comment.author.id) }}">{{ comment.author.username }}</a></span>
                                                 <span>{{ comment.create_time | exact_time }}</span>
                                             </p>
                                             {% if comment.origin_comment %}
-
-                                                <div class="origin-comment-group">
+                                                <div class="origin-comment-group" >
                                                     <blockquote>
                                                         {% if comment.origin_comment.is_removed %}
                                                             抱歉，该评论已被删除，暂时无法查看

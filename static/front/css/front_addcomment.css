@@ -1,11 +1,8 @@
-.container{
+.container-inner{
     width: 990px;
     background: #fff;
     margin: 10px auto;
     border: 1px solid #e6e6e6;
-}
-.container-inner{
-    background: #fff;
     padding: 30px;
     position: relative;
 }
@@ -20,6 +17,10 @@
 
 .bottom-group{
     padding-top: 10px;
+}
+
+.restrict-img img{
+    max-width: 50px;
 }
 
 #editor{

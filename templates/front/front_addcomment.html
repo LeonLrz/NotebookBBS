@@ -20,7 +20,7 @@
         </p>
     </div>
     {% if origin_comment %}
-        <div class="origin-comment-group">
+        <div class="origin-comment-group restrict-img" data-comment-id="{{ origin_comment.id }}" >
         <span>回复<a href="{{ url_for("front.profile",user_id=origin_comment.author.id) }}">@{{ origin_comment.author.username }}</a>
             发表于 {{ origin_comment.create_time | exact_time }}</span>
         <blockquote>
