@@ -3,7 +3,7 @@ import memcache
 cache = memcache.Client(['47.93.151.99:11211'],debug=True)
 
 
-def set(key,value,timeout=60):
+def set(key,value,timeout=300):
     # 添加其他代码
     return cache.set(key,value,timeout)
 
