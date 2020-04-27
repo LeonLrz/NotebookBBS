@@ -52,11 +52,13 @@
                 <div class="panel-body">
                     <div class="main-content">
                         <b>关于本站：</b>
-                        <p>我们是高品质的 笔记本爱好者 中文讨论社区，致力于为 笔记本爱好者 提供一个知识共享，协同互助的平台。<br>我们将会是国内最简洁易用的笔记本讨论社区。</p>
+                        <p>NotebookBBS是高品质的笔记本爱好者中文讨论社区<br>
+                            在这里，你不仅能与志同道合的网友讨论笔记本电脑的最新资讯，更能够获取如<strong>百科全书</strong>一般的笔记本电脑相关信息。<br>
+                            我们致力于为笔记本爱好者提供一个<strong>知识共享，协同互助</strong>的平台。</p>
                         {% if  g.front_user %}
                             {% if not g.front_user.is_active %}
-                                <li class="list-group-item list-group-item-danger"><span
-                                        class="glyphicon glyphicon-remove"></span>您的账号已被封禁，无法发表帖子！
+                                <li class="list-group-item list-group-item-danger">
+                                    <span class="glyphicon glyphicon-remove"></span>您的账号已被封禁，无法发帖！
                                 </li>
                             {% endif %}
                         {% endif %}

@@ -1,5 +1,5 @@
 $(function () {
-    var ue = UE.getEditor("editor",{
+    var ue = UE.getEditor("editor", {
         "serverUrl": '/ueditor/upload/'
     });
 
@@ -13,27 +13,27 @@ $(function () {
         var content = ue.getContent();
 
         myajax.post({
-            'url':'/apost/',
-            'data':{
-                'title':title,
-                'content':content,
-                'board_id':board_id
+            'url': '/apost/',
+            'data': {
+                'title': title,
+                'content': content,
+                'board_id': board_id
             },
-            'success':function (data) {
-                if(data['code']==200){
+            'success': function (data) {
+                if (data['code'] == 200) {
                     myalert.alertConfirm({
-                        'msg':'恭喜！帖子发表成功！',
-                        'cancelText':'回到首页',
-                        'confirmText':'再发一篇',
-                        'cancelCallback':function () {
+                        'msg': '恭喜！帖子发表成功！',
+                        'cancelText': '回到首页',
+                        'confirmText': '再发一篇',
+                        'cancelCallback': function () {
                             window.location = '/';
                         },
-                        'confirmCallback':function () {
+                        'confirmCallback': function () {
                             titleInput.val("");
                             ue.setContent("");
                         }
                     });
-                }else {
+                } else {
                     myalert.alertInfo(data['message']);
                 }
             }

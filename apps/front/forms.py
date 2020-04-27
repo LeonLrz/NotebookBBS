@@ -26,7 +26,6 @@ class SignupForm(BaseForm):
         mem = mycache.get(graph_captcha.lower())
         if not mem:
             raise ValidationError(message='图形验证码错误！')
-        # pass
 
 
 class SigninForm(BaseForm):

@@ -5,6 +5,7 @@ from utils import mycache
 from wtforms import ValidationError
 from flask import g
 
+
 class LoginForm(BaseForm):
     email = StringField(validators=[Email(message='请输入正确的邮箱格式'),InputRequired(message='请输入邮箱')])
     password = StringField(validators=[Length(6,20,message="请输入正确长度的密码！")])

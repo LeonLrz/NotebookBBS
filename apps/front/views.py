@@ -520,7 +520,7 @@ def email_captcha():
     captcha = "".join(random.sample(source, 6))
     # 给该邮箱发邮件
     message = Message(
-        "NotebooksBBS验证邮件",
+        "NotebookBBS验证邮件",
         recipients=[email],
         body="您正在绑定或修改邮箱！验证码是：" + captcha + "\n请勿告诉任何人！")
     try:

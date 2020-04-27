@@ -168,7 +168,7 @@ def comments():
 
 @bp.route('/manage_comment/',methods=['POST'])
 @login_required
-@permission_required(CMSPermission.POSTER)
+@permission_required(CMSPermission.COMMENTER)
 def mcomment():
     comment_id = request.form.get("comment_id")
     if not comment_id:
@@ -275,6 +275,7 @@ def fusers():
 
 @bp.route('/edit_frontuser/')
 @login_required
+@permission_required(CMSPermission.FRONTUSER)
 def edit_frontuser():
     user_id = request.args.get('id')
     if not user_id:
@@ -287,6 +288,8 @@ def edit_frontuser():
 
 
 @bp.route('/black_front_user/',methods=['POST'])
+@login_required
+@permission_required(CMSPermission.FRONTUSER)
 def black_front_user():
     form = CMSBlackFrontUserForm(request.form)
     if form.validate():
@@ -473,7 +476,7 @@ def email_captcha():
     old_email = g.cms_user.email
     if not email:
         return restful.params_error("请输入邮箱！")
-    user = FrontUser.query.filter_by(email=email).first()
+    user = CMSUser.query.filter_by(email=email).first()
     if user:
         return restful.params_error("该邮箱已被占用，请更换邮箱！")
     if email == old_email:
