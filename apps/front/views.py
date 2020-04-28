@@ -226,11 +226,11 @@ def notebook_params():
 def notebooks_compare():
     products_list = urllib.parse.unquote(request.cookies.get('products_list'))
     products_list = json.loads(products_list)
-    notebooks = []
+    notebook_list = []
     for product in products_list:
         notebook = LaptopInfo.query.get(product['productID'])
-        notebooks.append(notebook)
-    return render_template("front/notebooks_compare.html",notebooks=notebooks)
+        notebook_list.append(notebook)
+    return render_template("front/notebooks_compare.html",notebooks=notebook_list)
 
 
 class SignupView(views.MethodView):

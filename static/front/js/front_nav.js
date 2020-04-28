@@ -1,6 +1,6 @@
 /* nav.js 主要应用于首页右侧导航栏 */
 
-// 从session中取产品列表
+// 从cookie中取产品列表
 if ($.cookie("products_list")){
 	var list = JSON.parse($.cookie("products_list"));
 }else{

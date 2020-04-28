@@ -2,6 +2,7 @@
 
 from exts import db
 from datetime import datetime
+from sqlalchemy.orm import backref
 
 
 class BannerModel(db.Model):
@@ -31,10 +32,10 @@ class PostModel(db.Model):
     read_count = db.Column(db.Integer,default=0)
     is_removed = db.Column(db.Boolean,default=False)
 
-    board_id = db.Column(db.Integer,db.ForeignKey("board.id"))
+    board_id = db.Column(db.Integer,db.ForeignKey("board.id"),nullable=False)
     author_id = db.Column(db.String(100),db.ForeignKey("front_user.id"),nullable=False)
 
-    board = db.relationship('BoardModel',backref='posts')
+    board = db.relationship('BoardModel',backref=backref('posts',cascade="all"))
     author = db.relationship("FrontUser",backref='posts')
 
 
