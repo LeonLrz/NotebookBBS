@@ -71,8 +71,8 @@ from aliyunsdkcore.client import AcsClient
 from aliyunsdkcore.request import CommonRequest
 
 #阿里大于相关配置
-accessKeyId = 'LTAI4FcNN2hKFCERN3SThvhH'
-accessSecret = 'tQCx4fFGwLowtCP5M00V5fS80YdT8R'
+accessKeyId = ''
+accessSecret = ''
 SignName = 'NotebookBBS'
 TemplateCode = 'SMS_186576101'
 REGION = 'cn-hangzhou'
