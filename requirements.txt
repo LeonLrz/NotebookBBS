@@ -34,7 +34,7 @@ itsdangerous==0.24
 Jinja2==2.11.1
 jmespath==0.9.5
 kombu==4.2.1
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.0
 monotonic==1.5
 mysqlclient==1.4.6
